@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_order_comment, pjax: true, model: OrderComment} %>
+    <%= form_for 'OrderComment', url: admin_order_comments_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+        <div id="admin_order_comments">
+      <%= grid(@order_comments, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.order_comment.order_id'}", attribute: 'order_id' do |c|
+        c.order.id if c.order.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.order_comment.shop_id'}", attribute: 'shop_id' do |c|
+        c.shop.name if c.shop.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.order_comment.total_star'}", attribute: 'total_star'
+      g.column name: "#{t 'activerecord.attributes.order_comment.speed_star'}", attribute: 'speed_star'
+      g.column name: "#{t 'activerecord.attributes.order_comment.serve_start'}", attribute: 'serve_start'
+      g.column name: "#{t 'activerecord.attributes.order_comment.content'}", attribute: 'content'
+
+        g.column  do |c|
+          grid_operator(:admin_order_comment_path, c.id, OrderComment)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="order_comment_list"]').addClass('active');
+    } );
+</script>

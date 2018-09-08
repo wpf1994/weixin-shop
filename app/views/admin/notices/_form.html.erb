@@ -1,0 +1,30 @@
+<%= simple_form_for([:admin, @notice], html: {class: 'form-horizontal form-show', id: 'notice_form'}) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :title, required: true %>
+    <%= f.input :content, :as => :kindeditor, required: true %>
+    <%= f.input :author %>
+    <%= f.input :public_at, as: :string, html5: true, required: true %>
+
+    <div class="clearfix form-actions">
+      <div class="col-md-offset-3 col-md-9">
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
+
+<script>
+  $(function () {
+    $('#notice_form').validator_b3({
+      errorElement: 'div',
+      errorClass: 'help-block',
+      focusInvalid: false,
+      rules: {},
+      messages: {}
+    });
+
+
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="notice_list"]').addClass('active');
+  });
+</script>

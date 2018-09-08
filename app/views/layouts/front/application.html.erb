@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render partial: 'layouts/head', locals: {title: (t 'web.org') + (t 'web.system')} %>
+</head>
+<body>
+    <%= render partial: 'layouts/nav', locals: {title: (t 'web.org') + (t 'web.system')} %>
+
+    <script>
+        $(function() {
+            $(document).pjax('a.pjax:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<%= simple_form_for([:admin, @order_comment], html: {class: 'form-horizontal form-show',id: 'order_comment_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.association :order %>
+  <%= f.association :shop %>
+  <%= f.input :total_star %>
+  <%= f.input :speed_star %>
+  <%= f.input :serve_start %>
+  <%= f.input :content %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#order_comment_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="order_comment_list"]').addClass('active');
+    } );
+</script>

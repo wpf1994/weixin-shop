@@ -1,0 +1,127 @@
+<style type="text/css">
+    tr.menu_body {
+        display: none;
+    }
+</style>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="dataTables_wrapper">
+      <table class="table table-striped table-bordered table-hover dataTable">
+        <thead>
+        <tr>
+          <th>订单号</th>
+          <th>送货地址</th>
+          <th>手机号</th>
+          <th>收货人</th>
+          <th>价格(单位：元)</th>
+          <th>送货员</th>
+          <th>状态</th>
+          <th>付款方式</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @manage_orders.each do |c| %>
+            <tr id="b<%= c.order_id %>">
+              <td>
+                <%= c.order_id %>
+              </td>
+              <td><%= c.address %></td>
+              <td><%= c.phone %></td>
+              <td><%= c.name if c.name.present? %></td>
+              <td><%= c.order.actual_amount %></td>
+              <td><%= c.user.name if c.user.present? %></td>
+              <td><%= "#{@status_option[c.order.status]}" %></td>
+              <td><%= c.order.pay_style == 1 ? '在线支付' : '货到付款' %></td>
+              <td><a href="#">
+                <i class="icon-chevron-up" onclick="show_hide(<%= c.order_id %>)"></i>
+              </a></td>
+            </tr>
+            <tr id="a<%= c.order_id %>" class="menu_body">
+              <td colspan="9">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="col-xs-6">
+                      <table class="table table-hover">
+                        <thead>
+                        <tr>
+                          <th>
+                            <label>商品</label>
+                          </th>
+                          <th>
+                            <label>数量</label>
+                          </th>
+                          <th>
+                            <label>价格</label>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% c.order_details.each do |n| %>
+                        <% if n.commodity.present? %>
+                            <tr>
+                              <td>
+                                <label><%= n.commodity.name %></label>
+                              </td>
+                              <td>
+                                <label><%= n.count %></label>
+                              </td>
+                              <td><label><%= n.price %></label></td>
+                            </tr>
+                        <% end %>
+                        <% end %>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="col-xs-12">
+                        <label>金额：￥<%= c.order.actual_amount %>元</label>
+                      </div>
+                      <div class="col-xs-12">
+                        <label>客户下单时间：<%= l(c.order.created_at, format: :simple) if c.order.created_at.present? %></label>
+                      </div>
+                      <div class="col-xs-12">
+                        <label>开始派送时间：<%= l(c.express_start_time, format: :simple) if c.express_start_time.present? %>(准备耗时：<%= ((c.express_start_time - c.order.created_at)/60).to_i if c.express_start_time.present? %>分)</label>
+                      </div>
+                      <div class="col-xs-12">
+                        <label>预计送达时间：<%= l(c.express_end_time, format: :simple) if c.express_end_time.present? %></label>
+                      </div>
+                      <div class="col-xs-12">
+                        <label>实际送达时间：<%= l(c.complete_date, format: :simple) if c.complete_date.present?  %></label>
+                      </div>
+                      <div class="col-xs-12">
+                        <label>配送耗时：<%= ((c.complete_date - c.express_start_time)/60).to_i if(c.complete_date.present? && c.express_start_time.present?)  %>分</label>
+                      </div>
+                      <div class="col-xs-12">
+                        <% if(c.complete_date.present? && c.express_start_time.present?) %>
+                        <label><% if !c.is_ontime %> 按时送达 <% else %>超时：<%= ((c.complete_date - c.express_end_time)/60).to_i %>分<% end %></label>
+                        <% end %>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+        <% end %>
+        <tr>
+          <td colspan="9">
+            <%= paginate @manage_orders %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="order_info_list"]').addClass('active');
+    });
+    function show_hide(temp) {
+        $("#a" + temp + "").slideToggle("slow");
+    }
+</script>

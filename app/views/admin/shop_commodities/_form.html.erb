@@ -1,0 +1,42 @@
+<%= simple_form_for([:admin, @shop_commodity], html: {class: 'form-horizontal form-show',id: 'shop_commodity_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.association :shop, include_blank: false %>
+  <%= f.association :commodity, include_blank: false %>
+  <%= f.input :price, autodocus: true, required: true %>
+  <%= f.input :position %>
+  <%= f.input :enable, wrapper: :horizontal_radio_and_checkboxes %>
+  <%= f.input :sales_volume %>
+    <%= f.input :left_count %>
+    <%= f.input :is_has_long,wrapper: :horizontal_radio_and_checkboxes %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#shop_commodity_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+              "shop_commodity[price]": {
+                required: true
+              }
+            },
+            messages: {
+              "shop_commodity[price]": {
+                required: '请输入商品价格'
+              }
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_commodity_list"]').addClass('active');
+    } );
+</script>

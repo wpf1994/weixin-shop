@@ -1,0 +1,44 @@
+<%= simple_form_for([:admin, @employee], html: {class: 'form-horizontal form-show',id: 'employee_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.input :name, autofocus: true, required: true %>
+  <%= f.input :phone, required: true %>
+  <%= f.input :photo, hint: '建议使用英文文件名' %>
+  <%= f.association :shop, include_blank: false %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#employee_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+          rules: {
+            "employee[name]": {
+              required: true
+            },
+            "employee[phone]": {
+              required: true
+            }
+          },
+          messages: {
+            "employee[name]": {
+              required: "请输入店员名称"
+            },
+            "employee[phone]": {
+              required: "请输入店员电话，此号码会作为店员账号登录使用"
+            }
+          }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="employee_list"]').addClass('active');
+    } );
+</script>

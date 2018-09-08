@@ -1,0 +1,29 @@
+<div class="wrap">
+    <div class="header search">
+        <input type="text" class="header-search" ng-model="shipping_name" placeholder="商品名称"/><a ng-click="search_now()">确认</a>
+    </div>
+</div>
+<div class="" style="margin-top: 50px">
+    <div ng-repeat="temp in commodity_list" class="content-main-list" style="width: 100%; height: 80px; border-bottom: 1px solid #e7e7e7;" >
+        <div class="list-img" style="background: url({{temp.commodity.cover}}) center no-repeat; background-size: 100% 100%;">
+            <!--<img ng-src="{{temp.commodity.cover}}"/>-->
+        </div>
+        <div class="list-content">
+            <div class="title"><a>{{temp.commodity.name}}</a></div>
+            <div class="info">
+                <span>¥ {{temp.commodity.shop_commodities.price}}</span>
+
+                <div class="info-select">
+                    <a class="btn-buy" ng-click="select_commoidty(temp.commodity)"><span>购买</span></a>
+                    <!--<ul class="btn-add-mul" ng-show="temp.commodity.num >= 1">-->
+
+                    <!--<li><a ng-click="num_down(temp.commodity)">-</a></li>-->
+                    <!--<li><input type="text" ng-model="temp.commodity.num"-->
+                    <!--ng-change="calcu_total()"></li>-->
+                    <!--<li><a ng-click="num_add(temp.commodity)">+</a></li>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

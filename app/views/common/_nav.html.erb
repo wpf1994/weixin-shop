@@ -1,0 +1,30 @@
+<ul class="nav nav-tabs">
+  <li <%= 'class=active' if show_tab == :index %>>
+    <%= link_to send("#{model_nav_name.to_s.pluralize}_path") do %>
+        <i class="blue icon-th-list"></i> <%= t 'common.list' %>
+    <% end %>
+  </li>
+  <% if [:show, :edit].include?(show_tab) %>
+      <% if model.nil? or can? :read, model %>
+          <li <%= 'class=active' if show_tab == :show %>>
+            <%= link_to send("#{model_nav_name}_path"), class: pjax ? :pjax : '' do %>
+                <i class="green icon-info-sign"></i> <%= t 'common.show' %>
+            <% end %>
+          </li>
+      <% end  %>
+      <% if model.nil? or can? :update, model %>
+          <li <%= 'class=active' if show_tab == :edit %>>
+            <%= link_to send("edit_#{model_nav_name}_path"), class: pjax ? :pjax : '' do %>
+                <i class="orange2 icon-pencil"></i> <%= t 'common.edit' %>
+            <% end %>
+          </li>
+      <% end %>
+  <% end %>
+  <% if  can? :create, model %>
+  <li <%= 'class=active' if show_tab == :new %>>
+    <%= link_to send("new_#{model_nav_name}_path"), class: pjax ? :pjax : '' do %>
+        <i class="blue icon-plus"></i> <%= t 'common.new' %>
+  </li>
+      <% end %>
+    <% end %>
+</ul>

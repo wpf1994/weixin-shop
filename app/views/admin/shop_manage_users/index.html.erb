@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_shop_manage_user, pjax: true,model:ShopManageUser} %>
+    <%= form_for 'ShopManageUser', url: admin_shop_manage_users_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button>
+    <div id="admin_shop_manage_users">
+      <%= grid(@shop_manage_users, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.shop_manage_user.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_shop_manage_user_path(c.id), class: :pjax
+      end
+      g.column name: "#{t 'activerecord.attributes.shop_manage_user.phone'}", attribute: 'phone'
+      g.column name: "店铺" do |c|
+        Shop.find(c.user.shop_manage_id).name if c.user.present? && c.user.shop_manage_id.present?
+      end
+        g.column  do |c|
+          grid_operator(:admin_shop_manage_user_path, c.id,ShopManageUser)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_manage_user_list"]').addClass('active');
+    } );
+</script>

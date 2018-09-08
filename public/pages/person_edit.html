@@ -1,0 +1,11 @@
+<form class="address-form" name="person">
+    <ul>
+        <li>
+            <span>用户名</span>
+            <input type="text" ng-model="person_info.name" placeholder="用户名" name="name" required>
+            <span ng-show="person.name.errors.required">名字是必填的</span>
+        </li>
+    </ul>
+    <span></span>
+    <a ng-click="change_person_info()" ng-disabled="person.$invalid"><span>保存并使用</span></a>
+</form>

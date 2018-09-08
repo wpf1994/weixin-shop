@@ -1,0 +1,27 @@
+<div class="pages">
+  <div id="notice_page" data-page="notice_page" class="page navbar-fixed toolbar-fixed">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="/" class="link icon-only back">
+            <i class="icon icon-back"></i>
+          </a>
+        </div>
+        <div class="center">通知</div>
+        <div class="right">
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="content-block" style="margin-top: 0">
+        <div class="content-block-inner">
+          <h3 class="text-center">
+            <%= @notice.title %>
+          </h3>
+          <p><span class="subtitle"><%= l @notice.public_at %>&nbsp;&nbsp;&nbsp; <%= @notice.author %></span></p>
+          <%= @notice.content.html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

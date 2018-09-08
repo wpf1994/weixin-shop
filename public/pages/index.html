@@ -1,0 +1,123 @@
+<div class="wrap">
+    <div class="header">
+        <a class="header-name" ng-click="change_shop()" >{{shop_name || '请选择店铺'}}<i class="fa fa-angle-down"></i></a>
+
+        <div class="header-user">
+            <i class="fa fa-user" ng-click="person()"></i>
+            <!--<ul>-->
+            <!--<li><a>购物车</a></li>-->
+            <!--<li><a>个人中心</a></li>-->
+            <!--</ul>-->
+        </div>
+        <input type="text" class="header-search" ng-click="search_shipping()" placeholder="商品名称"/>
+
+
+    </div>
+    <div class="content">
+        <div class="content-side">
+            <ul>
+                <li ng-class="{ 'active': Is_select_class==temp.id }" ng-click="slect_class(temp)"
+                    ng-repeat="temp in class_name"><a><i ng-class="{ 'fa fa-heart success': Is_select_class==temp.id }" style="color: #ff0000;"></i> {{temp.name}}</a></li>
+            </ul>
+            <ul>
+                <li style="height: 80px; border: none;"><a></a></li>
+            </ul>
+        </div>
+        <div class="content-main" infinite-scroll='next_pages()' infinite-scroll-distance='1'>
+            <div class="content-nav">
+                <ul ng-repeat="temp in class_name" ng-show="temp.id==Is_select_class">
+                    <li ng-class="{'active': children_class_isselect==temp.id}"
+                        ng-click="select_children_class(temp.id)"><a>全部</a></li>
+                    <li ng-repeat="stdotem in temp.children" ng-class="{'active': children_class_isselect==stdotem.id}"
+                        ng-click="select_children_class(stdotem.id)">
+                        <a>{{stdotem.name}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-main-list"  infinite-scroll-disabled='busy'
+                  ng-repeat="temp in commodity[class_id]" style="overflow: hidden">
+                <div class="list-img" style="background: url({{temp.commodity.cover}}) center no-repeat; background-size: 100% 100%;">
+                    <!--<img ng-src="{{temp.commodity.cover}}"/>-->
+                </div>
+                <div class="list-content">
+                    <div class="title"><a>{{temp.commodity.name}}</a></div>
+                    <div class="info">
+                        <span>¥ {{temp.commodity.shop_commodities.price}}</span>
+
+                        <div class="info-select">
+                            <a class="btn-buy" ng-click="select_commoidty(temp.commodity)"><span>购买</span></a>
+                            <!--<ul class="btn-add-mul" ng-show="temp.commodity.num >= 1">-->
+
+                                <!--<li><a ng-click="num_down(temp.commodity)">-</a></li>-->
+                                <!--<li><input type="text" ng-model="temp.commodity.num"-->
+                                           <!--ng-change="calcu_total()"></li>-->
+                                <!--<li><a ng-click="num_add(temp.commodity)">+</a></li>-->
+                            <!--</ul>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-main-list" style="border-bottom: 0">
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-cart" ng-click="shop_car()"><i class="fa fa-shopping-cart"></i>
+
+                <div class="footer-cart-num"><span>{{shipping_num}}</span></div>
+            </div>
+            <div class="footer-price">
+                总计:<span>{{total_price}}</span>元
+            </div>
+            <div class="footer-btn footer-btn-red">
+                <a ng-click="down_order()" ng-disabled="{0:true}[shipping_num]">下单</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal" ng-show="show_car">
+        <div class="modal-bg" ng-click="close_shop_car()"></div>
+        <div class="model-form">
+            <div class="model-form-title"><i class="fa fa-close" ng-click="shop_car()"></i></div>
+            <div class="model-form-list">
+                <div ng-repeat="(k,asa) in buy_shipping">
+                    <div class="content-main-list" ng-repeat="abc in asa track by $index">
+                        <div class="list-img">
+                            <img alt="pic" ng-src="{{abc.cover}}">
+                        </div>
+                        <div class="list-content">
+                            <div class="title"><a>{{abc.name}}</a></div>
+                            <div class="info">
+                                <span>¥ {{abc.shop_commodities.price}}</span>
+
+                                <div class="info-select">
+                                    <ul class="btn-add-mul">
+                                        <li><a ng-click="num_down(abc)">-</a></li>
+                                        <li><input type="text" ng-model="abc.num"
+                                                   ng-change="calcu_total()"/></li>
+                                        <li><a ng-click="num_add(abc)">+</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-btn-del">
+                            <a ng-click="remove_shipping($index,k,abc)">删除</a>
+                        </div>
+
+                    </div>
+                </div>
+                <!--<div class="content-main-list" style="border-bottom: 0">-->
+                <!--</div>-->
+                <div class="model-form-footer">
+                    <div class="model-info">共{{shipping_num}}件商品，总计<span class="highlight">¥{{total_price}}</span>元
+                    </div>
+                    <div class="footer-btn footer-btn-red">
+                        <a ng-click="down_order()">下单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

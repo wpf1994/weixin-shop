@@ -1,0 +1,15 @@
+<div class="wrap">
+    <div class="shop-list address-list">
+        <ul>
+            <li ng-repeat="temp in address_info">
+                <div ng-class="{'category-list-name category-list-check': temp.id == select_address_value,'category-list-name': temp.id != select_address}" ng-click="select_address(temp)">{{temp.address}}</div>
+                <a><i class="fa fa-edit" ng-click="change_address(temp)"></i></a>
+            </li>
+
+            <li style="border-bottom: none"></li>
+        </ul>
+    </div>
+    <div class="footer">
+        <a class="btn-address" ng-click="create_address()">＋新建收货地址</a>
+    </div>
+</div>

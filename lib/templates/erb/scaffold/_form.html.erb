@@ -1,0 +1,32 @@
+<%- namespace = controller_class_name.include?('::') -%>
+<%%= simple_form_for(<% if namespace %>[:<%= controller_class_name.split('::').first.to_s.downcase %>, @<%= file_name %>]<% else %>@<%= file_name %><% end%>, html: {class: 'form-horizontal form-show',id: '<%= file_name %>_form' }) do |f| %>
+<%%= f.error_notification %>
+
+<%- attributes.each do |attribute| -%>
+  <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %><% if attribute.type == :date %>, as: :string, input_html: date_picker({}) <% end %><% case attribute.name; when 'enable' %>, input_html: { checked: true } unless @<%= file_name %>.new_record?<% when 'remark' %>, as: :text<% end %> %>
+<%- end -%>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<%% end %>
+
+<script>
+    $(function () {
+        $('#<%= file_name %>_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="<%= file_name %>_list"]').addClass('active');
+    } );
+</script>

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_employee, pjax: true, model: Employee} %>
+    <%= form_for 'Employee', url: admin_employees_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <% if can? :delete, Employee %><button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button><% end %>
+    <div id="admin_employees">
+      <%= grid(@employees, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.employee.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_employee_path(c.id), class: :pjax
+      end
+      g.column name: "#{t 'activerecord.attributes.employee.phone'}", attribute: 'phone'
+      g.column name: "#{t 'activerecord.attributes.employee.photo'}" do |c|
+        "<img src='#{c.photo.url(:thumb)}' />".html_safe
+      end
+      g.column name: "#{t 'activerecord.attributes.employee.shop'}" do |c|
+        c.shop.name if c.shop.present?
+      end
+
+        g.column  do |c|
+          grid_operator(:admin_employee_path, c.id, Employee)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="employee_list"]').addClass('active');
+    } );
+</script>

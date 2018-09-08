@@ -1,0 +1,31 @@
+<% if @breadcrumbs.present? %>
+    <div class="breadcrumbs" id="breadcrumbs">
+      <script type="text/javascript">
+          try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+      </script>
+      <ul class="breadcrumb">
+      <% if @breadcrumbs.length > 1 %>
+          <%= link_to 'javascript:window.history.back()', class: 'btn btn-xs btn-info' do %>
+              <i class="icon-circle-arrow-left"></i>
+              <%= t 'common.back' %>
+          <% end %>
+      <% end %>
+      <% @breadcrumbs[0..-2].each_with_index do |crumb, index| %>
+          <li>
+            <%= link_to crumb[:url], crumb[:options] do %>
+                <% if index == 0 %>
+                    <i class="icon-home home-icon"></i>
+                <% end %>
+                <%= crumb[:name] %>
+            <% end %>
+          </li>
+      <% end %>
+          <li class="active">
+            <% if @breadcrumbs.length == 1 %>
+                <i class="icon-home home-icon"></i>
+            <% end %>
+            <%= @breadcrumbs.last[:name] %>
+          </li>
+      </ul><!-- .breadcrumb -->
+    </div>
+<% end %>

@@ -1,0 +1,62 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.login-layout {
+    background-color: #e4e6e9;
+}
+
+.login-layout .widget-box {
+    background-color: #e4e6e9;
+!important;
+}
+
+.widget-main {
+    height: 323px;
+}
+
+.browser-icon {
+    height: 32px;
+    margin-bottom: 6px;
+}
+
+.login-top {
+    width: 954px;
+    min-height: 65px;
+    margin-top: 20px;
+}
+
+.login {
+    width: 954px;
+    height: 100%;
+    /*background-image: url('/images/login/login_bg.jpg');*/
+}
+
+.login .nav-info {
+    margin-left: 30px;
+}
+
+.login-alert {
+    width: 954px;
+}
+
+.nav-item {
+    height: 64px;
+    margin-top: 50px;
+}
+
+.login-zone {
+    margin-top: 10%
+}
+
+.login-foot {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

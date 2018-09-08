@@ -1,0 +1,150 @@
+<%= stylesheet_link_tag  'login' %>
+<div class="container login-alert no-padding">
+  <% if browser.ie? && browser.version.to_i < 9 %>
+      <div id="browser_alert" class="alert alert-warning">
+        <p class="disclaimer">亲爱的用户，你使用的IE浏览器版本过低，请升级到<a title="点击下载" target="_blank"
+                                                         href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">新版IE浏览器</a>或其他现代浏览器</p>
+      </div>
+  <% end %>
+</div>
+<div class="container login login-layout">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 login-zone">
+      <div class="login-container">
+        <div class="position-relative">
+          <div id="login-box" class="login-box visible widget-box no-border">
+            <div class="widget-body">
+              <div class="widget-main">
+                <h4 class="header blue lighter bigger">
+                  <i class="icon-coffee green"></i>
+                  <%= t 'login.in' %><%= t 'web.org' %><%= t 'web.system' %>
+                </h4>
+                <div class="space-6"></div>
+                <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <fieldset>
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" class="form-control" placeholder="<%= t 'login.account' %>" name="user[login]" />
+                            <i class="icon-user"></i>
+                        </span>
+                    </label>
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" class="form-control" placeholder="<%= t 'login.password' %>" name="user[password]" />
+                            <i class="icon-lock"></i>
+                        </span>
+                    </label>
+                    <div class="space1">
+                        <%= flash[:alert] %>
+                    </div>
+                    <div class="clearfix">
+                      <label class="inline">
+                        <input type="checkbox" class="ace hide" />
+                        <span class="lbl hide"> <%= t 'login.remember_me' %></span>
+                      </label>
+
+                      <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                        <i class="icon-key"></i>
+                        <%= t 'login.login' %>
+                      </button>
+                    </div>
+                    <div class="space-4"></div>
+                  </fieldset>
+                <% end %>
+                <div class="social-or-login center">
+                  <span class="bigger-110"><%= t 'login.recommended_browser' %></span>
+                </div>
+                <div class="social-login center">
+                  <a class="btn btn-info" title="谷歌浏览器" target="_blank"
+                     href="http://rj.baidu.com/soft/detail/14744.html?ald">
+                    <img src="/images/login/chrome.png" class="browser-icon">
+                  </a>
+
+                  <a class="btn btn-info" title="火狐浏览器" target="_blank"
+                     href="http://download.firefox.com.cn/releases/stub/official/zh-CN/Firefox-latest.exe">
+                    <img src="/images/login/firefox.png" class="browser-icon">
+                  </a>
+
+                  <a class="btn btn-info" title="360安全浏览器" target="_blank"
+                     href="http://se.360.cn/">
+                    <img src="/images/login/360.png" class="browser-icon">
+                  </a>
+
+                  <a class="btn btn-info" title="IE浏览器(9版本以上)" target="_blank"
+                     href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">
+                    <img src="/images/login/ie.png" class="browser-icon">
+                  </a>
+                </div>
+              </div><!-- /widget-main -->
+
+              <div class="toolbar clearfix">
+                <div>
+                  <a href="#" class="hide" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+                    <i class="icon-arrow-left"></i>
+                    <%= t 'login.forget_pw' %>
+                  </a>
+                </div>
+              </div>
+            </div><!-- /widget-body -->
+          </div><!-- /login-box -->
+          <!--
+          <div id="forgot-box" class="forgot-box widget-box no-border">
+            <div class="widget-body">
+              <div class="widget-main">
+                <h4 class="header red lighter bigger">
+                  <i class="icon-key"></i>
+                  <%= t 'login.retrieve_password' %>
+                </h4>
+
+                <div class="space-6"></div>
+                <p>
+                  输入注册账号号码获取密码信息
+                </p>
+
+                <form>
+                  <fieldset>
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="login" class="form-control" placeholder="<%= t 'login.account' %>" autofocus />
+                            <i class="icon-envelope"></i>
+                        </span>
+                    </label>
+
+                    <div class="clearfix">
+                      <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                        <i class="icon-lightbulb"></i>
+                        <%= t 'login.submit' %>
+                      </button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div><!-- /widget-main -->
+        <!--
+              <div class="toolbar center">
+                <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                  <%= t 'login.back_to_login' %>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div>
+            </div><!-- /widget-body -->
+        -->
+          </div><!-- /forgot-box -->
+        </div><!-- /position-relative -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container login-alert no-padding">
+  <% if browser.ie? && browser.version.to_i < 9 %>
+      <div id="browser_alert" class="alert alert-warning">
+        <p class="disclaimer">亲爱的用户，你使用的IE浏览器版本过低，请升级到<a title="点击下载" target="_blank"
+                                                   href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">新版IE浏览器</a>或其他现代浏览器</p>
+      </div>
+  <% end %>
+</div>
+<div class="center login-foot">
+  <p><a href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action"></a> | Copyright © 2013-2015 SingularityClub 版权所有</p>
+</div>
+
+
+<%= javascript_include_tag 'account/login' %>

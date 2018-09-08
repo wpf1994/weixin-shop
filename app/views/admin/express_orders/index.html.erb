@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :index, model_nav_name: :admin_express_order, pjax: true, model: 'ExpressOrder'} %>
+    <div id="admin_express_orders">
+      <%= grid(@express_orders, show_filters: :when_filtered) do |g|
+        g.action_column param_name: :select_ids, object_property: :id
+        g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+        g.column name: "#{t 'activerecord.attributes.express_order.consignee'}", attribute: 'consignee'
+        g.column name: "#{t 'activerecord.attributes.express_order.phone'}", attribute: 'phone'
+        g.column name: "#{t 'activerecord.attributes.express_order.address'}", attribute: 'address'
+        g.column name: "#{t 'activerecord.attributes.express_order.status'}", attribute: 'status', custom_filter: {'无包裹': -1, '待配送': 0, '已配送': 1} do |c|
+          dic = {'-1': '无包裹', '0': '待配送', '1': '已配送'}
+          dic[c.status.to_s.to_sym]
+        end
+        g.column name: "#{t 'activerecord.attributes.express_order.shop'}" do |c|
+          c.shop.name if c.shop_id.present?
+        end
+        g.column name: "#{t 'activerecord.attributes.express_order.courier_id'}", model: User, attribute: 'name' do |c|
+          c.courier.name if c.courier.present?
+        end
+        g.column name: "#{t 'activerecord.attributes.express_order.serial_number'}", attribute: 'serial_number'
+        g.column name: "#{t 'activerecord.attributes.express_order.completed_at'}", attribute: 'completed_at'
+        g.column name: '快递单号' do |c|
+          express_order_edit_in_index(c).html_safe if c.status !=1
+        end
+      end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="express_order_list"]').addClass('active');
+
+
+  });
+</script>

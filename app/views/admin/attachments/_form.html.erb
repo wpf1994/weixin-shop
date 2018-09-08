@@ -1,0 +1,38 @@
+
+<%= simple_form_for([:admin, @attachment], html: {class: 'form-horizontal form-show',id: 'attachment_form' }) do |f| %>
+<%= f.error_notification %>
+
+
+  <%= f.input :name, autofocus: true %>
+
+  <%= f.input :avatar, hint: '建议使用英文文件名' %>
+
+  <%= f.input :position %>
+
+  <%= f.input :data_type, collection: [['默认', 0]], include_blank: false %>
+
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#attachment_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="attachment_list"]').addClass('active');
+    } );
+</script>

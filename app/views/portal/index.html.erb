@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="True" name="HandheldFriendly">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>缤购生活服务</title>
+  <link href="http://cdn.bootcss.com/framework7/1.4.2/css/framework7.ios.min.css" rel="stylesheet">
+  <link href="http://cdn.bootcss.com/framework7/1.4.2/css/framework7.ios.colors.min.css" rel="stylesheet">
+  <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag 'portal.css' %>
+  <script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+  <script src="http://cdn.bootcss.com/vue-resource/0.7.0/vue-resource.min.js"></script>
+</head>
+<body>
+<%= yield %>
+<div class="views">
+  <div class="view view-main" data-page="home">
+    <div class="pages">
+      <div data-page="home" class="page navbar-fixed toolbar-fixed">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left"></div>
+            <div class="center">缤购生活服务</div>
+            <div class="right"></div>
+          </div>
+        </div>
+        <div class="page-content">
+          <div class="swiper-container" data-pagination=".swiper-pagination">
+            <!-- Slides wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <% @adverts.each do |ad| %>
+                  <a class="swiper-slide external" href="<%= ad.link %>" style="background: url('<%= ad.cover.url %>') center no-repeat; background-size: cover; ">
+                  </a>
+              <% end %>
+            </div>
+            <!-- Pagination, if required -->
+            <div class="swiper-pagination"></div>
+          </div>
+          <div class="content-block no-padding bg-white middle-block">
+            <div class="row no-gutter ">
+              <div class="col-50 icon-block" href="/buy">
+                <a class="icon-link external" href="/shop" style="background: url('/images/shoppingIcon.png') no-repeat center 100%; background-size: contain">
+
+                </a>
+              </div>
+              <div class="col-50 icon-block">
+                <a class="icon-link" href="/free_express" style="background: url('/images/expressageIcon.png') no-repeat center 100%;background-size: contain">
+
+                </a>
+              </div>
+            </div>
+          </div>
+          <p class="notice-list-title">&nbsp;公告</p>
+          <div class="list-block notice-list">
+            <ul>
+              <% @notices.each do |notice| %>
+                  <li>
+                    <a href="/notice/<%= notice.id %>" class="item-link item-content">
+                      <div class="item-media"><i class="fa fa-bullhorn"></i></div>
+                      <div class="item-inner">
+                        <div class="item-title"><%= notice.title %></div>
+                        <div class="item-after"><%= notice.public_at.strftime('%F') %></div>
+                      </div>
+                    </a>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <!--<div class="toolbar">-->
+        <!--<div class="toolbar-inner"><a href="#" class="link">Hello</a><a href="#" class="link">World</a></div>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</div>
+<script src="http://cdn.bootcss.com/framework7/1.4.2/js/framework7.min.js"></script>
+<%= javascript_include_tag 'portal.js' %>
+</body>
+</html>

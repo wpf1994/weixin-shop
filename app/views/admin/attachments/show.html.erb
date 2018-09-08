@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_attachment, pjax: true} %>
+    <div class="form-horizontal form-show" id="admin_attachment">
+
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.attachment.name' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @attachment.name %>">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.attachment.avatar' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @attachment.avatar %>">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.attachment.author' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @attachment.author.name if @attachment.author.present? %>">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.attachment.position' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @attachment.position %>">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.attachment.data_type' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @attachment.data_type %>">
+
+              </div>
+            </div>
+          </div>
+
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="attachment_list"]').addClass('active');
+    } );
+</script>

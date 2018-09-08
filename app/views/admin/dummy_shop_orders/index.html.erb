@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%# render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_classification, pjax: true, model: Classification} %>
+        <%= form_for 'Classification', url: admin_classifications_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %><% end %>
+        <!--<button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%# t 'common.delete_multi' %></button>-->
+        <div id="admin_classifications">
+          <%= grid(@dummy_shop_orders, show_filters: :when_filtered) do |g|
+            g.action_column param_name: :select_ids, object_property: :id
+            g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+            g.column name: "#{t 'activerecord.attributes.dummy_shop_order.user_name'}", attribute: 'user_name'
+
+            g.column name: "#{t 'activerecord.attributes.dummy_shop_order.user_phone'}", attribute: 'user_phone'
+            g.column name: "#{t 'activerecord.attributes.dummy_shop_order.commodity_name'}", attribute: 'commodity_name'
+            g.column name: "#{t 'activerecord.attributes.dummy_shop_order.commodity_num'}", attribute: 'commodity_num'
+            g.column name: "#{t 'activerecord.attributes.dummy_shop_order.created_at'}", attribute: 'created_at'
+
+
+            g.column  do |c|
+              # grid_operator(:admin_classification_path, c.id, Classification)
+            end
+          end %>
+        </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="dummy_shop_order_list"]').addClass('active');
+  } );
+</script>

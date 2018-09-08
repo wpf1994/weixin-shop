@@ -1,0 +1,139 @@
+<style type="text/css">
+
+    .hidden-type {
+        display: none;
+    }
+</style>
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="dataTables_wrapper">
+      <table class="table table-striped table-bordered table-hover dataTable">
+        <thead>
+        <tr>
+          <th>订单号</th>
+          <th>送货地址</th>
+          <th>手机号</th>
+          <th>收货人</th>
+          <th>价格(单位：元)</th>
+          <th>送货员</th>
+          <th>状态</th>
+          <th>付款方式</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody id="t_body">
+        <% @manage_orders.each do |c| %>
+            <tr id="b<%= c.id %>">
+              <td>
+                <%= c.order_id %>
+              </td>
+              <td><%= c.address %></td>
+              <td><%= c.phone %></td>
+              <td><%= c.name %></td>
+              <td><%= c.order.actual_amount %></td>
+              <td>
+                <select id="seller_select">
+                  <% Employee.where(shop_id: current_user.shop_manage_id).each do |cm| %>
+                      <option value="<%= cm.id %>"><%= cm.name %></option>
+                  <% end %>
+                </select>
+                <input type="button" value="确认" onclick="express_seller(<%= c.id %>,<%= c.order_id %>)">
+              </td>
+              <td><%= "#{@status_option[c.order.status]}" %></td>
+              <td><%= c.order.pay_style == 1 ? '在线支付' : '货到付款' %></td>
+              <td><a href="#">
+                <i class="icon-chevron-up" onclick="show_hide(<%= c.id %>)"></i>
+              </a></td>
+            </tr>
+            <tr id="a<%= c.id %>" class="hidden-type">
+              <td colspan="9">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="col-xs-6">
+                      <label>金额：<%= c.order.actual_amount %></label>
+                    </div>
+                    <div class="col-xs-6">
+                      <label>下单时间：<%= l(c.order.created_at, format: :simple) %></label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="col-xs-6">
+                      <table class="table table-hover">
+                        <thead>
+                        <tr>
+                          <th>
+                            <label>商品</label>
+                          </th>
+                          <th>
+                            <label>数量</label>
+                          </th>
+                          <th>
+                            <label>价格</label>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% c.order_details.each do |n| %>
+                            <tr>
+                              <td>
+                                <label><%= n.commodity.name %></label>
+                              </td>
+                              <td>
+                                <label><%= n.count %></label>
+                              </td>
+                              <td><label><%= n.price %></label></td>
+                            </tr>
+                        <% end %>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+        <% end %>
+        <tr>
+          <td colspan="9">
+            <%= paginate @manage_orders %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="manage_order_list"]').addClass('active');
+    });
+    function show_hide(temp) {
+        $("#a" + temp + "").slideToggle("slow")
+    }
+    function express_seller(stemp, stopm) {
+        var seller_id = $('#seller_select').val()
+        if (seller_id == "") {
+            return
+        }
+//
+        var temp = stemp
+        var order_id = stopm
+        $.post("/admin/manage_orders/add_express_seller", {
+            order_express_id: temp,
+            seller_id: seller_id,
+            order_id: order_id
+        }, function (data) {
+            $("#b" + temp + "").remove();
+            $("#a" + temp + "").remove();
+            if(window.reload_order_count){
+              window.reload_order_count();
+            }
+
+        })
+    }
+</script>

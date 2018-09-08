@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_shop, pjax: true, model: Shop} %>
+    <div class="form-horizontal form-show" id="admin_shop">
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.name' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.name %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.address' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.address %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.phone' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.phone %>">
+              </div>
+            </div>
+          </div>
+          <!--<div class="form-group">-->
+            <!--<label class="control-label col-xs-12 col-sm-3"><%#= t 'activerecord.attributes.shop.map_location' %></label>-->
+            <!--<div class="col-xs-12 col-sm-9">-->
+              <!--<div class="clearfix">-->
+                    <!--<input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%#= @shop.map_location %>">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.region' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.region.name if @shop.region.present? %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.parent' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.parent.name if @shop.parent.present? %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.can_express' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.can_express ? '可配送' : '不可配送' %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.express_amount' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @shop.express_amount %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.can_express_start_date' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= l @shop.can_express_start_date, format: :time %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.shop.can_express_end_date' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= l @shop.can_express_end_date, format: :time %>">
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_list"]').addClass('active');
+    } );
+</script>

@@ -1,0 +1,50 @@
+
+<%= simple_form_for([:admin, @shop], html: {class: 'form-horizontal form-show',id: 'shop_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.input :name, autofocus: true, required: true %>
+  <%= f.input :address %>
+  <%= f.input :phone, required: true %>
+  <%#= f.input :map_location %>
+  <%= f.association :region, collection: CodeTable.where(parent_id: 1).map{|ct| [ct.name, ct.id]}, include_blank: false %>
+  <%= f.association :parent %>
+  <%= f.input :can_express, wrapper: :horizontal_radio_and_checkboxes %>
+  <%= f.input :express_amount %>
+  <%= f.input :can_express_start_date, as: :string, input_html: time_picker_handler({}), input_html: { value: (l @shop.can_express_start_date, format: :time) } %>
+  <%= f.input :can_express_end_date, as: :string, input_html: time_picker_handler({}), input_html: { value: (l @shop.can_express_end_date, format: :time) } %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#shop_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+              "shop[name]": {
+                required: true
+              },
+              "shop[phone]": {
+                required: true
+              }
+            },
+            messages: {
+              "shop[name]": {
+                required: "请输入店铺名称"
+              },
+              "shop[phone]": {
+                required: "请输入店铺电话，此号码会作为店铺账号登录使用"
+              }
+            }
+        });
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_list"]').addClass('active');
+    } );
+</script>

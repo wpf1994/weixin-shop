@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :index, model_nav_name: :admin_permission, pjax: true, model: Permission} %>
+    <div id="admin_permissions">
+      <%= form_for 'Permission', url: admin_permissions_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+          <button class="btn btn-minier btn-danger" type="submit">
+            <i class="icon-trash"></i> <%= t 'common.delete_multi' %></button>
+          <%= grid(@permissions, show_filters: :when_filtered) do |g|
+            g.action_column param_name: :select_ids, object_property: :id
+            g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+            g.column name: "#{t 'activerecord.attributes.permission.description'}", attribute: 'description' do |c|
+              link_to c.description, admin_permission_path(c.id), class: :pjax
+            end
+            g.column name: "#{t 'activerecord.attributes.permission.action'}", attribute: 'action'
+            g.column name: "#{t 'activerecord.attributes.permission.subject'}", attribute: 'subject'
+            g.column name: "#{t 'activerecord.attributes.permission.group'}" do |t|
+              t.group.name if t.group.present?
+            end
+
+            g.column do |c|
+              grid_operator(:admin_permission_path, c.id, Permission)
+            end
+          end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="permission_list"]').addClass('active');
+    });
+</script>

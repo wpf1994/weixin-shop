@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :<%= singular_table_name %>, pjax: true} %>
+    <div class="form-horizontal form-show" id="<%= singular_table_name %>">
+      <%- for attribute in attributes -%>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%%= t 'activerecord.attributes.<%= file_name %>.<%= attribute.name %>' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                <%- if attribute.name == 'remark' -%>
+                    <textarea readonly="readonly" class="col-xs-12 col-sm-6"><%%= @<%= file_name %>.<%= attribute.name %> %></textarea>
+                <%- elsif attribute.type == :references -%>
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%%= @<%= file_name %>.<%= attribute.name %>.name if @<%= file_name %>.<%= attribute.name %>.present? %>">
+                <%- else -%>
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%%= @<%= file_name %>.<%= attribute.name %> %>">
+                <%- end -%>
+              </div>
+            </div>
+          </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="<%= file_name %>_list"]').addClass('active');
+    } );
+</script>

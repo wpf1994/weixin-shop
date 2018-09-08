@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_shop, pjax: false, model:Shop} %>
+    <%= form_for 'Shop', url: admin_shops_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <% if can? :delete, Shop %><button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button><% end %>
+    <div id="admin_shops">
+      <%= grid(@shops, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.shop.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_shop_path(c.id), class: :pjax
+      end
+      g.column name: "#{t 'activerecord.attributes.shop.address'}", attribute: 'address'
+      g.column name: "#{t 'activerecord.attributes.shop.phone'}", attribute: 'phone'
+      # g.column name: "#{t 'activerecord.attributes.shop.map_location'}", attribute: 'map_location'
+      g.column name: "#{t 'activerecord.attributes.shop.region'}", attribute: 'region_id' do |c|
+        c.region.name if c.region.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.shop.parent'}", attribute: 'parent_id' do |c|
+        c.parent.name if c.parent.present?
+      end
+      # g.column name: "#{t 'activerecord.attributes.shop.can_express'}", attribute: 'can_express'
+      # g.column name: "#{t 'activerecord.attributes.shop.express_amount'}", attribute: 'express_amount'
+      g.column name: "#{t 'activerecord.attributes.shop.can_express_start_date'}", attribute: 'can_express_start_date' do |c|
+        c.can_express_start_date.strftime '%H:%M:%S' if c.can_express_start_date.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.shop.can_express_end_date'}", attribute: 'can_express_end_date' do |c|
+        c.can_express_end_date.strftime '%H:%M:%S' if c.can_express_end_date.present?
+      end
+
+        g.column  do |c|
+          grid_operator(:admin_shop_path, c.id, Shop)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_list"]').addClass('active');
+    } );
+</script>

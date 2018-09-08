@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_customer, pjax: true, model: Customer} %>
+    <%= form_for 'Customer', url: admin_customers_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <div id="admin_customers">
+      <%= grid(@customers, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.customer.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_customer_path(c.id), class: :pjax
+      end
+      g.column name: "#{t 'activerecord.attributes.customer.member_number'}", attribute: 'member_number'
+      g.column name: "#{t 'activerecord.attributes.customer.phone'}", attribute: 'phone'
+      g.column name: "#{t 'activerecord.attributes.customer.email'}", attribute: 'email'
+      g.column name: "#{t 'activerecord.attributes.customer.score'}", attribute: 'score'
+      g.column name: "#{t 'activerecord.attributes.customer.weixin_id'}", attribute: 'weixin_id'
+      g.column name: "#{t 'activerecord.attributes.customer.lase_shop'}", attribute: 'lase_shop_id' do |c|
+        c.lase_shop.name if c.lase_shop.present?
+      end
+
+        g.column  do |c|
+          grid_operator(:admin_customer_path, c.id, Customer)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="customer_list"]').addClass('active');
+    } );
+</script>

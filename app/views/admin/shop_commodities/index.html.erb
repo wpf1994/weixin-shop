@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_shop_commodity, pjax: true, model: ShopCommodity} %>
+    <%= form_for 'ShopCommodity', url: admin_shop_commodities_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button>
+    <div id="admin_shop_commodities">
+      <%= grid(@shop_commodities, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.shop_id'}", attribute: 'shop_id',
+               custom_filter: Shop.all.map{|shop| [shop.name, shop.id]} do |c|
+        c.shop.name if c.shop.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.commodity_id'}", attribute: 'name', model: Commodity do |c|
+        c.commodity.name if c.commodity.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.price'}", attribute: 'price'
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.left_count'}", attribute: 'left_count' do |c|
+        "<input type='text' value='#{c.left_count}' id='text_#{c.id}'  /><button type='button' onclick='change_left_count(#{c.id})'>确定</button>".html_safe
+      end
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.enable'}", attribute: 'enable' do |c|
+        c.enable ? '启用' : '禁用'
+      end
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.sales_volume'}", attribute: 'sales_volume'
+      g.column name: "#{t 'activerecord.attributes.shop_commodity.is_has_long'}", attribute: 'is_has_long' do |c|
+        "<button id='button_#{c.id}' type='button' class='btn btn-sm btn-warning btn-warning' onclick='set_has_long(#{c.id})'>#{c.is_has_long ? '是' : '否'}</button>".html_safe
+      end
+
+        g.column  do |c|
+          grid_operator(:admin_shop_commodity_path, c.id, ShopCommodity)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="shop_commodity_list"]').addClass('active');
+    } );
+    function set_has_long(text){
+      $.ajax({
+        type: 'get',
+        url: '/admin/shop_commodities/set_has_long?id='+text+'',
+        success: function(data){
+          $('#button_'+text+'')[0].innerText=data.result
+        },error:function(error){
+          console.log(error)
+        }
+      })
+    }
+    function change_left_count(c_id){
+      var text_num = $('#text_'+c_id+'').val()
+      $.ajax({
+        type: 'get',
+        url: '/admin/shop_commodities/change_left_count?id='+c_id+'&text_num='+text_num+'',
+        success: function(data){
+          alert('更新成功')
+        },error:function(error){
+          console.log(error)
+        }
+      })
+    }
+</script>

@@ -1,0 +1,34 @@
+<%= simple_form_for([:admin, @permission], html: {class: 'form-horizontal form-show', id: 'permission_form'}) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :description, required: true %>
+    <%= f.input :action, required: true, placeholder: "请用冒号开始，如: ':manage'" %>
+    <%= f.input :subject, required: true do %>
+        <%= f.select :subject, ActiveRecord::Base.descendants.map(&:name) %>
+    <% end %>
+    <%= f.input :code, as: :text %>
+    <%= f.input :fetching %>
+    <%= f.association :group %>
+
+    <div class="clearfix form-actions">
+      <div class="col-md-offset-3 col-md-9">
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#permission_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {},
+            messages: {}
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="permission_list"]').addClass('active');
+    });
+</script>

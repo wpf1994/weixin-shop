@@ -1,0 +1,381 @@
+<link rel="stylesheet" href="/assets/css/daterangepicker.css" />
+<script src="/assets/js/date-time/moment.min.js"></script>
+<script src="/assets/js/date-time/daterangepicker.min.js"></script>
+
+<div class="row">
+  <div class="col-xs-12">
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <div class="tabbable">
+      <ul class="nav nav-tabs padding-18 tab-size-bigger">
+        <!--<li >-->
+          <!--<a data-toggle="tab" href="#faq-tab-1" onclick="select_data()">-->
+            <!--<i class="blue icon-question-sign bigger-120"></i>-->
+            <!--备货超时订单-->
+          <!--</a>-->
+        <!--</li>-->
+        <li class="active">
+          <a data-toggle="tab" href="#faq-tab-2" onclick="order_num()">
+            <i class="green icon-user bigger-120"></i>
+            订单数量统计
+          </a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#faq-tab-3" onclick="select_order()">
+            <i class="orange icon-credit-card bigger-120"></i>
+            销售金额统计
+          </a>
+        </li>
+        <% if current_user.roles.find_by('roles.id=1').present? %>
+        <li>
+          <a data-toggle="tab" href="#faq-tab-4" onclick="hot_shipping()">
+            <i class="orange icon-credit-card bigger-120"></i>
+            热销商品排序
+          </a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#faq-tab-5" onclick="expresss_total()">
+            <i class="orange icon-credit-card bigger-120"></i>
+            送货员单量统计
+          </a>
+        </li>
+            <% end %>
+      </ul>
+      <div class="tab-content no-border padding-24">
+        <div id="faq-tab-2" class="tab-pane fade in active col-xs-12">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="icon-calendar bigger-110"></i>
+                    </span>
+                <input class="form-control" type="text" name="date-range-picker" id="datetime_two" />
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <button onclick="order_num()">提交</button>
+            </div>
+          </div>
+          <div class="dataTables_wrapper col-xs-6">
+            <table class="table table-striped table-bordered table-hover dataTable">
+              <thead>
+              <tr>
+                <th>店铺：</th>
+                <th>数量：</th>
+              </tr>
+              </thead>
+              <tbody id="tbody_two">
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-6" id="chart_2">
+            <div id="picture_two" data-highcharts-chart="0">
+
+            </div>
+          </div>
+        </div>
+        <div id="faq-tab-3" class="tab-pane fade col-xs-12">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="icon-calendar bigger-110"></i>
+                    </span>
+                <input class="form-control" type="text" name="date-range-picker" id="datetime_three" />
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <button onclick="select_order()">提交</button>
+            </div>
+          </div>
+          <div class="dataTables_wrapper col-xs-6">
+            <div>
+              <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                <tr>
+                  <th>店铺：</th>
+                  <th>销售总金额（单位：元）</th>
+                  <th>真实商品金额 (单位: 元)</th>
+                  <th>虚拟商品金额 (单位: 元)</th>
+                </tr>
+                </thead>
+                <tbody id="tbody_three">
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top: 50px">
+              <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                <tr>
+                  <th>店铺：</th>
+                  <th>商品分类</th>
+                  <th>销售金额(单位: 元)</th>
+                </tr>
+                </thead>
+                <tbody id="tbody_single">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div id="picture_three" data-highcharts-chart="0">
+
+            </div>
+          </div>
+
+        </div>
+        <div id="faq-tab-4" class="tab-pane fade col-xs-12">
+          <div>
+            <label>店铺选择</label>
+            <select onchange="hot_shipping()" id="shop_select">
+              <option value="0">全店</option>
+              <% Shop.all.each do |c| %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="icon-calendar bigger-110"></i>
+                    </span>
+                <input class="form-control" type="text" name="date-range-picker" id="datetime_four" />
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <button onclick="hot_shipping()">提交</button>
+            </div>
+          </div>
+          <div class="dataTables_wrapper col-xs-6">
+            <table class="table table-striped table-bordered table-hover dataTable">
+              <thead>
+              <tr>
+                <th>商品：</th>
+                <th>数量：</th>
+              </tr>
+              </thead>
+              <tbody id="tbody_four">
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-6" id="chart_2">
+            <div id="picture_four" data-highcharts-chart="0">
+
+            </div>
+          </div>
+        </div>
+        <div id="faq-tab-5" class="tab-pane fade col-xs-12">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="icon-calendar bigger-110"></i>
+                    </span>
+                <input class="form-control" type="text" name="date-range-picker" id="datetime_five" />
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <button onclick="expresss_total()">提交</button>
+            </div>
+          </div>
+          <div class="dataTables_wrapper col-xs-6">
+            <table class="table table-striped table-bordered table-hover dataTable">
+              <thead>
+              <tr>
+                <th>递送员：</th>
+                <th>数量：</th>
+                <th>店铺：</th>
+              </tr>
+              </thead>
+              <tbody id="tbody_five">
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-6" id="chart_2">
+            <div id="picture_five" data-highcharts-chart="0">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('#datetime_one').daterangepicker({format:'YYYY-MM-DD'}).prev().on(ace.click_event, function(){
+            $(this).next().focus();
+        });
+        $('#datetime_two').daterangepicker({format:'YYYY-MM-DD'}).prev().on(ace.click_event, function(){
+            $(this).next().focus();
+        });
+        $('#datetime_three').daterangepicker({format:'YYYY-MM-DD'}).prev().on(ace.click_event, function(){
+            $(this).next().focus();
+        });
+        $('#datetime_four').daterangepicker({format:'YYYY-MM-DD'}).prev().on(ace.click_event, function(){
+            $(this).next().focus();
+        });
+        $('#datetime_five').daterangepicker({format:'YYYY-MM-DD'}).prev().on(ace.click_event, function(){
+            $(this).next().focus();
+        });
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="manage_order_list"]').addClass('active');
+      order_num()
+
+    });
+
+//    function select_data() {
+//        var minutes = $('#text_minutes').val()
+//        var time_info  = ($('#datetime_one').val()).split(" - ")
+//        $.post("/admin/shop_statistics/get_data", {minutes: minutes, time_info: time_info}, function (data) {
+//            var options = {
+//                "title": {"text": "备货超时订单统计"},
+//                "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+//                "xAxis": {"categories": data.name},
+//                "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "店铺"}, "opposite": true}],
+//                "tooltip": {"valueSuffix": "件"},
+//                "credits": {"enabled": false},
+//                "plotOptions": {"areaspline": {}},
+//                "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+//                "subtitle": {},
+//                "series": [{"name": "订单量", "yAxis": 0, "data": data.data}]
+//            };
+//            window.chart_picture_one = new Highcharts.Chart(options);
+//            $('#tbody_one').empty()
+//            var result_string = ""
+//            $.each(data.temp, function () {
+//                result_string += "<tr><td>" + this.shop_name + "</td><td>" + this.count_all + "</td></tr>"
+//            })
+//            $('#tbody_one').append(result_string)
+//        })
+//    }
+    function order_num() {
+        var time_info  = ($('#datetime_two').val()).split(" - ")
+        $.post("/admin/shop_statistics/shop_total",{time_info: time_info}, function (data){
+            var options = {
+                "title": {"text": "订单数量统计"},
+                "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+                "xAxis": {"categories": data.name},
+                "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "店铺"}, "opposite": true}],
+                "tooltip": {"valueSuffix": "件"},
+                "credits": {"enabled": false},
+                "plotOptions": {"areaspline": {}},
+                "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+                "subtitle": {},
+                "series": [{"name": "订单量", "yAxis": 0, "data": data.data}]
+            };
+            $('#picture_two').highcharts(options);
+            $('#tbody_two').empty()
+            var result_string = ""
+            $.each(data.temp, function () {
+                result_string += "<tr><td>" + this.shop_name + "</td><td>" + this.count_all +"</td></tr>"
+            })
+            $('#tbody_two').append(result_string)
+        })
+    }
+    function select_order() {
+        var time_info  = ($('#datetime_three').val()).split(" - ")
+        $.post("/admin/shop_statistics/shop_all_total",{time_info: time_info}, function (data) {
+            var options = {
+                "title": {"text": "销售金额统计"},
+                "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+                "xAxis": {"categories": data.name},
+                "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "店铺"}, "opposite": true}],
+                "tooltip": {"valueSuffix": "元"},
+                "credits": {"enabled": false},
+                "plotOptions": {"areaspline": {}},
+                "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+                "subtitle": {},
+                "series": [{"name": "销售额", "yAxis": 0, "data": data.data}]
+            };
+            $('#picture_three').highcharts(options);
+            $('#tbody_three').empty()
+            var result_string = ""
+            $.each(data.temp, function () {
+                result_string += "<tr><td>" + this.shop_name + "</td><td>" + this.count_all+ "</td><td>" + this.material_count_all + "</td><td>" + this.fictitious_count_all + "</td></tr>"
+            })
+            $('#tbody_three').append(result_string)
+
+            $('#tbody_single').empty()
+            var result_string = ""
+            $.each(data.new_single_temp, function (index,temp) {
+                result_string += "<tr><td>" + temp.shop_name + "</td><td>" + index+ "</td><td>" + temp.count_all + "</td></tr>"
+            })
+            $('#tbody_single').append(result_string)
+        })
+    }
+    function hot_shipping() {
+        var time_info  = ($('#datetime_four').val()).split(" - ")
+        shop_id = $('#shop_select').val()
+        if(shop_id==0) {
+            $.post("/admin/shop_statistics/hot_shipping_total", {time_info: time_info}, function (data) {
+                var options = {
+                    "title": {"text": "热销商品统计"},
+                    "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+                    "xAxis": {"categories": data.name},
+                    "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "店铺"}, "opposite": true}],
+                    "tooltip": {"valueSuffix": "件"},
+                    "credits": {"enabled": false},
+                    "plotOptions": {"areaspline": {}},
+                    "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+                    "subtitle": {},
+                    "series": [{"name": "商品销售量", "yAxis": 0, "data": data.data}]
+                };
+                $('#picture_four').highcharts(options);
+                $('#tbody_four').empty()
+                var result_string = ""
+                $.each(data.temp, function () {
+                    result_string += "<tr><td>" + this.shop_name + "</td><td>" + this.count_all + "</td></tr>"
+                })
+                $('#tbody_four').append(result_string)
+            })
+        }
+        else{
+            $.post("/admin/shop_statistics/hot_shipping_single", {time_info: time_info, shop_id: shop_id}, function (data) {
+                var options = {
+                    "title": {"text": "热销商品统计"},
+                    "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+                    "xAxis": {"categories": data.name},
+                    "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "商品"}, "opposite": true}],
+                    "tooltip": {"valueSuffix": "件"},
+                    "credits": {"enabled": false},
+                    "plotOptions": {"areaspline": {}},
+                    "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+                    "subtitle": {},
+                    "series": [{"name": "商品销售量", "yAxis": 0, "data": data.data}]
+                };
+                $('#picture_four').highcharts(options);
+                $('#tbody_four').empty()
+                var result_string = ""
+                $.each(data.temp, function () {
+                    result_string += "<tr><td>" + this.shop_name + "</td><td>" + this.count_all + "</td></tr>"
+                })
+                $('#tbody_four').append(result_string)
+            })
+        }
+    }
+    function expresss_total() {
+        var time_info  = ($('#datetime_five').val()).split(" - ")
+        $.post("/admin/shop_statistics/express_num_total",{time_info: time_info}, function (data) {
+            var options = {
+                "title": {"text": "送货员单量统计"},
+                "legend": {"align": "right", "verticalAlign": "top", "y": 75, "x": 0, "layout": "vertical"},
+                "xAxis": {"categories": data.user},
+                "yAxis": [{"title": {"text": "延期的订单量", "margin": 70}}, {"title": {"text": "店铺"}, "opposite": true}],
+                "tooltip": {"valueSuffix": "件"},
+                "credits": {"enabled": false},
+                "plotOptions": {"areaspline": {}},
+                "chart": {"defaultSeriesType": "column", "renderTo": "picture_one"},
+                "subtitle": {},
+                "series": [{"name": "送货量", "yAxis": 0, "data": data.data}]
+            };
+            $('#picture_five').highcharts(options);
+            $('#tbody_five').empty()
+            var result_string = ""
+            $.each(data.temp, function () {
+                result_string += "<tr><td>" + this.user_name + "</td><td>" + this.count_all + "</td><td>" + this.shop_name + "</td></tr>"
+            })
+            $('#tbody_five').append(result_string)
+        })
+    }
+</script>

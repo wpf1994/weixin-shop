@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="Mycontroller">
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+
+  <title>缤购生活服务</title>
+  <!--<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>-->
+  <!--<script src="/assets/angularjs/angular.js"></script>-->
+  <!--<script src="http://cdn.bootcss.com/angular.js/1.4.1/angular-route.min.js"></script>-->
+  <!--<script src="/assets/ng-infinite-scroll.min.js"></script>-->
+  <!--<script src="/controller/app.js"></script>-->
+  <!--<script src="/controller/jquery.raty.js"></script>-->
+  <!--<link href="/assets/css/ace.min.css" rel="stylesheet">-->
+  <script src="//cdn.bootcss.com/localforage/1.2.7/localforage.min.js"></script>
+
+  <%= javascript_include_tag 'front/application' %>
+  <%= stylesheet_link_tag 'front/application' %>
+
+  <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <!--<link href="/assets/css/mycss/main.css" rel="stylesheet" />-->
+  <title></title>
+</head>
+<body>
+<div ng-view class="scroll" style="position:absolute; overflow:scroll; -webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0"></div>
+
+</body>
+<script>
+  $(function(){
+    var overscroll = function(el) {
+      el.addEventListener('touchstart', function() {
+        var top = el.scrollTop
+            , totalScroll = el.scrollHeight
+            , currentScroll = top + el.offsetHeight
+        //If we're at the top or the bottom of the containers
+        //scroll, push up or down one pixel.
+        //
+        //this prevents the scroll from "passing through" to
+        //the body.
+        if(top === 0) {
+          el.scrollTop = 1
+        } else if(currentScroll === totalScroll) {
+          el.scrollTop = top - 1
+        }
+      })
+      el.addEventListener('touchmove', function(evt) {
+        //if the content is actually scrollable, i.e. the content is long enough
+        //that scrolling can occur
+        if(el.offsetHeight < el.scrollHeight)
+          evt._isScroller = true
+      })
+    }
+    overscroll(document.querySelector('.scroll'));
+    document.body.addEventListener('touchmove', function(evt) {
+      //In this case, the default behavior is scrolling the body, which
+      //would result in an overflow.  Since we don't want that, we preventDefault.
+      if(!evt._isScroller) {
+        evt.preventDefault()
+      }
+    })
+  })
+</script>
+</html>

@@ -1,0 +1,40 @@
+<%= simple_form_for([:admin, @shop_manage_user], html: {class: 'form-horizontal form-show', id: 'shop_manage_user_form'}) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :name %>
+    <%= f.input :phone %>
+    <div class="form-group select optional shop_region">
+      <label class="select optional control-label col-xs-12 col-sm-3" for="shop_region_id">店铺</label>
+
+      <div class="col-xs-12 col-sm-9">
+        <div class="clearfix">
+          <select class="select optional col-xs-12 col-sm-6" id="shop_region_id" name="shop_owner">
+            <% Shop.all.each do |temp| %>
+            <option value="<%= temp.id %>"  <%= selected="selected" if @shop_manage_user.user.present? && @shop_manage_user.user.shop_manage_id==temp.id %> ><%= temp.name %></option>
+                <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix form-actions">
+      <div class="col-md-offset-3 col-md-9">
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
+
+<script>
+  $(function () {
+    $('#shop_manage_user_form').validator_b3({
+      errorElement: 'div',
+      errorClass: 'help-block',
+      focusInvalid: false,
+      rules: {},
+      messages: {}
+    });
+
+
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="shop_manage_user_list"]').addClass('active');
+  });
+</script>

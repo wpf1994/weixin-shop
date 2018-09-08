@@ -1,0 +1,98 @@
+<div class="pages" >
+  <div data-page="free_express" class="page navbar-fixed toolbar-fixed" id="free_express_page">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="/" class="link icon-only back">
+            <i class="icon icon-back"></i>
+          </a>
+        </div>
+        <div class="center">免费快递送上门</div>
+        <div class="right">
+        </div>
+      </div>
+    </div>
+    <div class="page-content" id="fress_express_page">
+      <div class="list-block ">
+        <ul>
+          <li>
+            <a href="#" class="item-link smart-select" data-back-text=" " data-back-on-select="true">
+              <!-- select -->
+              <select name="收货地址" v-model="express.address_selector" @change="address_selector_changed(express.address_selector)">
+                <option value="">无</option>
+                <% current_user.owner.receiving_addresses.each do |addr| %>
+                    <option value="<%= addr.id %>">[<%= addr.name %>]<%= addr.address %></option>
+                <% end %>
+              </select>
+              <label class="item-content">
+                <div class="item-media"><i class="fa fa-map-marker fa-fw"></i></div>
+                <div class="item-inner">
+                  <div class="item-title">收货地址</div>
+                  <!-- Additional "smart-select-value" class to set selected option depending on this text value -->
+                  <div class="item-after smart-select-value">点击选择</div>
+                </div>
+              </label>
+            </a>
+          </li>
+          <!-- Select -->
+          <li>
+            <div class="item-content">
+              <div class="item-media"><i class="fa fa-shopping-cart fa-fw"></i></div>
+              <label class="item-inner">
+                <div class="item-title label">包裹所在地</div>
+                <div class="item-input">
+                  <select v-model="express.shop_id" required>
+                    <% Shop.all.each_with_index do |shop, index| %>
+                        <option value="<%= shop.id %>" <%= 'selected' if index==0 %>><%= shop.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </label>
+            </div>
+          </li>
+          <!-- Text inputs -->
+          <li>
+            <div class="item-content">
+              <div class="item-media"><i class="fa fa-user fa-fw"></i></div>
+              <label class="item-inner">
+                <div class="item-title label">收货人姓名</div>
+                <div class="item-input">
+                  <input type="text" autofocus v-model="express.name" required>
+                </div>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-media"><i class="fa fa-phone fa-fw"></i></div>
+              <label class="item-inner">
+                <div class="item-title label">收货人电话</div>
+                <div class="item-input">
+                  <input type="text" v-model="express.phone" required>
+                </div>
+              </label>
+            </div>
+          </li>
+          <!-- Textarea -->
+          <li class="align-top">
+            <div class="item-content">
+              <div class="item-media"><i class="fa fa-map-marker fa-fw"></i></div>
+              <label class="item-inner">
+                <div class="item-title label">地址</div>
+                <div class="item-input">
+                  <textarea v-model="express.address"></textarea>
+                </div>
+              </label>
+            </div>
+          </li>
+        </ul>
+        <div class="content-block">
+          <p><button class="button active button-big" style="width:100%" @click="save_express()">提交</button></p>
+        </div>
+      </div>
+    </div>
+    <!--<div class="toolbar">-->
+    <!--<div class="toolbar-inner"><a href="#" class="link">Hello</a><a href="#" class="link">World</a></div>-->
+    <!--</div>-->
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="address" ng-show="!is_show">
+    <a ng-click="write_address()">请填写收货地址</a>
+</div>
+<div class="address" ng-show="is_show">
+    <a  ng-click="write_address()">配送至：{{receving_address.address}}-{{receving_address.name}}-{{receving_address.phone}}</a>
+</div>
+<div class="category-list" ng-repeat="(k,temp) in buy_shipping ">
+    <h3><span>{{k}}</span></h3>
+    <div  ng-repeat="abc in temp ">
+        <div class="content-main-list">
+            <div class="list-img">
+                <img alt="pic" ng-src="{{abc.cover}}">
+            </div>
+            <div class="list-content">
+                <div class="title"><a>{{abc.name}}</a></div>
+                <div class="info">
+                    <span>¥ {{abc.shop_commodities.price}} * {{abc.num}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="body-footer">-->
+    <!--<div class="pay-label"><label>支付方式</label></div>-->
+    <!--<div class="pay-option">-->
+        <!--<span><input type="radio" name="pay_style" ng-model="pay_style" value="1">在线支付</span>-->
+        <!--<span><input type="radio" name="pay_style" ng-model="pay_style" value="0">货到付款</span>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="footer">
+    <div class="footer-cart">
+        <span style="line-height: 40px; color: #777">共{{shipping_num}}件商品</span>
+    </div>
+    <div class="footer-price">
+        总计:<span>{{total_price}}</span>元
+    </div>
+    <div class="footer-btn footer-btn-red">
+        <a ng-click="submit_order_to_down()">确认</a>
+    </div>
+</div>
+<div class="message-info" ng-show="message_info_show">
+    订单提交成功，正在加紧配送中
+</div>
+<div class="message-info" ng-show="pay_info_show">
+    正在下单,请稍后
+</div>

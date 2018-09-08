@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-12">
+
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_attachment, pjax: true} %>
+
+    <%= form_for 'Attachment', url: admin_attachments_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button>
+    <div id="admin_attachments">
+      <%= grid(@attachments, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+
+
+      g.column name: "#{t 'activerecord.attributes.attachment.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_attachment_path(c.id), class: :pjax
+      end
+
+      g.column name: "#{t 'activerecord.attributes.attachment.author'}", attribute: 'author_id' do |c|
+        c.author.name if c.author.present?
+      end
+
+      g.column name: "#{t 'activerecord.attributes.attachment.position'}", attribute: 'position'
+
+      g.column name: "#{t 'activerecord.attributes.attachment.data_type'}", attribute: 'data_type'
+
+        g.column  do |c|
+          grid_operator(:admin_attachment_path, c.id)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="attachment_list"]').addClass('active');
+    } );
+</script>

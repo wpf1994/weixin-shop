@@ -1,0 +1,2 @@
+module Admin::CodeTablesHelper
+end

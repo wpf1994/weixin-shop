@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_commodity, pjax: true,model: Commodity} %>
+    <%= form_for 'Commodity', url: admin_commodities_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <% if can? :delete, Commodity %><button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%= t 'common.delete_multi' %></button><% end %>
+    <div id="admin_commodities">
+      <%= grid(@commodities, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.commodity.name'}", attribute: 'name' do |c|
+        link_to c.name, admin_commodity_path(c.id), class: :pjax
+      end
+      g.column name: "#{t 'activerecord.attributes.commodity.summary'}", attribute: 'summary'
+      g.column name: "#{t 'activerecord.attributes.commodity.content'}", attribute: 'content'
+      g.column name: "#{t 'activerecord.attributes.commodity.identifier'}", attribute: 'identifier'
+      g.column name: "#{t 'activerecord.attributes.commodity.reference_price'}", attribute: 'reference_price'
+      g.column name: "#{t 'activerecord.attributes.commodity.classification'}", attribute: 'classification_id' do |c|
+        c.classification.name if c.classification.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.commodity.cover'}", attribute: 'cover_id' do |c|
+        c.cover_id.present? ? (image_tag c.cover.avatar.url(:thumb)) : '暂无'
+      end
+
+        g.column  do |c|
+          grid_operator(:admin_commodity_path, c.id, Commodity)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="commodity_list"]').addClass('active');
+    } );
+</script>

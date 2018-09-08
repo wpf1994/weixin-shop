@@ -1,0 +1,36 @@
+<%= simple_form_for([:admin, @commodity], html: {class: 'form-horizontal form-show',id: 'commodity_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%= f.input :summary %>
+  <%= f.input :content %>
+  <%= f.input :identifier %>
+  <%= f.input :reference_price %>
+    <%= f.association :classification %>
+    <%= f.input :cover, as: :file, input_html: {name: 'commodity[cover_attributes][avatar]'}, hint: '建议使用英文文件名' %>
+
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#commodity_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="commodity_list"]').addClass('active');
+    } );
+</script>

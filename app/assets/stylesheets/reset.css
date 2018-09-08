@@ -1,0 +1,38 @@
+.table tbody tr td  a.btn{
+    width: 25px !important;
+}
+.form-group label abbr{
+    color: red;
+}
+.form-actions{
+    border-top: 0;
+}
+@media (max-width: 991px) and (min-width: 768px){
+    .table tbody tr td .hidden-sm{display: block !important;}
+}
+@media (max-width: 767px){
+    .table tbody tr td .hidden-xs{display: block !important;}
+}
+@media only screen and (max-width:490px ){
+    .navbar .navbar-header.pull-left{
+        display: inline-block;
+        float: right;
+    }
+    .navbar .navbar-header.pull-right{
+        display: inline-block;
+        float: right !important;
+    }
+    .ace-nav{
+        text-align: right;
+    }
+    .table tbody tr td .hidden-xs a{
+        clear: both;
+        margin: 1px 0 !important;
+    }
+}
+@media (max-width: 480px) and (min-width: 461px), (max-width: 360px){
+    .icon-user{
+        display: none !important;
+    }
+
+}

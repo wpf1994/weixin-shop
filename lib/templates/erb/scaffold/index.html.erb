@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%- if controller_class_name.include?('::') -%>
+    <%%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :<%= singular_table_name %>, pjax: true} %>
+    <%- end -%>
+    <%%= form_for '<%= file_name.camelize %>', url: <%= plural_table_name %>_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <button class="btn btn-minier btn-danger" type="submit"><i class="icon-trash"></i> <%%= t 'common.delete_multi' %></button>
+    <div id="<%= plural_table_name %>">
+      <%%= grid(@<%= plural_file_name %>, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+    <%- attributes.each do |attribute| -%>
+      <%- if attribute.name == 'name' -%>
+      g.column name: "#{t 'activerecord.attributes.<%= file_name %>.<%= attribute.name %>'}", attribute: '<%= attribute.name %>' do |c|
+        link_to c.name, <%= singular_table_name %>_path(c.id), class: :pjax
+      end
+      <%- elsif attribute.type == :references -%>
+      g.column name: "#{t 'activerecord.attributes.<%= file_name %>.<%= attribute.name %>'}", attribute: '<%= attribute.name %>_id' do |c|
+        c.<%= attribute.name %>.name if c.<%= attribute.name %>_id.present?
+      end
+      <%- else -%>
+      g.column name: "#{t 'activerecord.attributes.<%= file_name %>.<%= attribute.name %>'}", attribute: '<%= attribute.name %>'
+      <%- end -%>
+    <%- end -%>
+
+        g.column  do |c|
+          grid_operator(:<%= singular_table_name %>_path, c.id)
+        end
+      end %>
+    </div>
+
+    <%% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="<%= file_name %>_list"]').addClass('active');
+    } );
+</script>

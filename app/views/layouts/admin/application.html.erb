@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render partial: 'layouts/head', locals: {title: (t 'web.org') + (t 'web.manage_system')} %>
+  <%= javascript_include_tag '/assets/My97DatePicker/WdatePicker.js' %>
+</head>
+<body>
+<%= render partial: 'layouts/nav', locals: {title: (t 'web.org') + (t 'web.manage_system')} %>
+
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <a class="menu-toggler" id="menu-toggler" href="#">
+      <span class="menu-text"></span>
+    </a>
+    <div class="sidebar" id="sidebar">
+      <script type="text/javascript">
+        try {
+          ace.settings.check('sidebar', 'fixed')
+        } catch (e) {
+        }
+      </script>
+      <ul class="nav nav-list">
+
+        <% if can? :read, User %>
+            <li data-model="user_list">
+              <%= link_to admin_users_path do %>
+                  <i class="icon-user"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.user.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :read, ShopManageUser %>
+            <li data-model="shop_manage_user_list">
+              <%= link_to admin_shop_manage_users_path do %>
+                  <i class="icon-user"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.shop_manage_user.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, CodeTable %>
+            <li data-model="code_table_list">
+              <%= link_to admin_code_tables_path do %>
+                  <i class="icon-book"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.code_table.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Role %>
+            <li data-model="role_list">
+              <%= link_to admin_roles_path do %>
+                  <i class="icon-key"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.role.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Permission %>
+            <li data-model="permission_list">
+              <%= link_to admin_permissions_path do %>
+                  <i class="icon-lock"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.permission.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <!--
+        <% if can? :manage, Attachment %>-->
+            <!--<li data-model="attachment_list">-->
+            <!--<%= link_to admin_attachments_path do %>-->
+                <!--<i class="icon-cloud-upload"></i>-->
+                <!--<span class="menu-text"> <%= t 'activerecord.attributes.attachment.admin_title' %> </span>-->
+                <!--
+            <% end %>-->
+            <!--</li>-->
+            <!--
+        <% end %>-->
+        <% if can? :read, Customer %>
+            <li data-model="customer_list">
+              <%= link_to admin_customers_path do %>
+                  <i class="icon-cloud-upload"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.customer.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Commodity %>
+            <li data-model="commodity_list">
+              <%= link_to admin_commodities_path do %>
+                  <i class="icon-coffee"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.commodity.admin_title' %> </span>
+              <% end %>
+            </li>
+            <li data-model="commodity_upload">
+              <%= link_to admin_commodities_upload_path do %>
+                  <i class="icon-cloud-upload"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.commodity.upload' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <!--
+        <% if can? :manage, Community %>-->
+            <!--<li data-model="community_list">-->
+            <!--<%= link_to admin_communities_path do %>-->
+                <!--<i class="icon-cloud-upload"></i>-->
+                <!--<span class="menu-text"> <%= t 'activerecord.attributes.community.admin_title' %> </span>-->
+                <!--
+            <% end %>-->
+            <!--</li>-->
+            <!--
+        <% end %>-->
+        <% if can? :manage, Classification %>
+            <li data-model="classification_list">
+              <%= link_to admin_classifications_path do %>
+                  <i class="icon-folder-open"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.classification.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Shop %>
+            <li data-model="shop_list">
+              <%= link_to admin_shops_path do %>
+                  <i class="icon-home"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.shop.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Employee %>
+            <li data-model="employee_list">
+              <%= link_to admin_employees_path do %>
+                  <i class="icon-group"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.employee.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, CancelOrder %>
+            <li data-model="cancel_orders_list">
+              <%= link_to admin_cancel_orders_path do %>
+                  <i class="icon-exchange"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.cancel_order.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, ShopCommodity %>
+            <li data-model="shop_commodity_list">
+              <%= link_to admin_shop_commodities_path do %>
+                  <i class="icon-cog"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.shop_commodity.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :read, Order %>
+            <li data-model="order_list">
+              <%= link_to admin_orders_path do %>
+                  <i class="icon-credit-card"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.order.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, DummyShopOrder %>
+            <li data-model="dummy_shop_order_list">
+              <%= link_to admin_dummy_shop_orders_path do %>
+                  <i class="icon-credit-card"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.dummy_shop_order.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :update, OrderExpress %>
+            <li>
+              <a class="dropdown-toggle" href="#">
+                <i class="icon-cloud-upload"></i>
+                    <span class="menu-text">
+                      <%= "派送管理" %></span>
+                <b class="arrow icon-angle-down"></b>
+              </a>
+              <ul class="submenu" style="display: block">
+                <li data-model="manage_order_list">
+                  <audio src="/images/light_sound.mp3" id="audio" controls="controls" style="display: none"></audio>
+                  <%= link_to admin_manage_orders_path do %>
+                      <i class="icon-double-angle-right"></i>
+                      <i class="icon-cog"></i>
+                      <span class="menu-text"> 未处理派送订单 </span>
+                      <span id="order_count" class="badge badge-danger hide">0</span>
+                  <% end %>
+                </li>
+                <li data-model="order_info_list">
+                  <%= link_to admin_order_infos_path do %>
+                      <i class="icon-double-angle-right"></i>
+                      <i class="icon-cog"></i>
+                      <span class="menu-text"> 已处理派送订单 </span>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+            <script>
+              $(function () {
+                $order_count = $('span#order_count');
+                $order_a = $order_count.parent('a')
+                window.reload_order_count = function () {
+                  $.getJSON('<%= read_order_count_admin_manage_orders_path %>', null, function (data) {
+                    if (parseInt(data) > 0) {
+                      $order_count.removeClass('hide');
+                      $order_a.addClass('red');
+                      $order_count.html(data);
+                      document.getElementById("audio").play()
+
+                    } else {
+                      $order_count.addClass('hide');
+                      $order_a.removeClass('red');
+                    }
+                  })
+                };
+                window.reload_order_count();
+                setInterval('reload_order_count()', 15000);
+              });
+            </script>
+        <% end %>
+        <% if can? :read, Order %>
+            <li>
+              <%= link_to admin_shop_statistics_index_path do %>
+                  <i class="icon-bar-chart"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.shop_statistics.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :read, OrderComment %>
+            <li data-model="order_comment_list">
+              <%= link_to admin_order_comments_path do %>
+                  <i class="icon-eye-open"></i>
+                  <span class="menu-text"> <%= t 'activerecord.attributes.order_comment.admin_title' %> </span>
+              <% end %>
+            </li>
+        <% end %>
+
+        <% if can? :manage, ExpressOrder %>
+            <li data-model="express_order_list">
+              <%= link_to admin_express_orders_path do %>
+                  <i class="icon-eye-open"></i>
+                  <span class="menu-text"> 快递订单管理 </span>
+                  <span id="express_order_count" class="badge badge-danger hide">0</span>
+            <% end %>
+            </li>
+        <% end %>
+        <script>
+          $(function () {
+            $express_count = $('span#express_order_count');
+            $express_a = $express_count.parent('a')
+            window.reload_express_count = function () {
+              $.getJSON('<%= read_express_count_admin_express_orders_path %>', null, function (data) {
+                if (parseInt(data) > 0) {
+                  $express_count.removeClass('hide');
+                    $express_a.addClass('red');
+                    $express_count.html(data);
+                  document.getElementById("audio").play()
+
+                } else {
+                    $express_count.addClass('hide');
+                    $express_a.removeClass('red');
+                }
+              })
+            };
+            window.reload_express_count();
+            setInterval('reload_express_count()', 15000);
+          });
+        </script>
+        <% if can? :manage, Advert %>
+            <li data-model="advert_list">
+              <%= link_to admin_adverts_path do %>
+                  <i class="icon-eye-open"></i>
+                  <span class="menu-text"> 广告管理</span>
+              <% end %>
+            </li>
+        <% end %>
+        <% if can? :manage, Notice %>
+            <li data-model="notice_list">
+              <%= link_to admin_notices_path do %>
+                  <i class="icon-eye-open"></i>
+                  <span class="menu-text">公告管理</span>
+              <% end %>
+            </li>
+        <% end %>
+      </ul>
+      <div class="sidebar-collapse" id="sidebar-collapse">
+        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+      </div>
+
+      <script type="text/javascript">
+        try {
+          ace.settings.check('sidebar', 'collapsed')
+        } catch (e) {
+        }
+      </script>
+    </div>
+    <div class="main-content" data-pjax-container>
+      <%= render template: 'layouts/admin/pjax' %>
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+      <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+  </div><!-- /.main-container-inner -->
+</div>
+<script>
+  $(function () {
+    $(document).pjax('a.pjax:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]');
+  });
+</script>
+</body>
+</html>

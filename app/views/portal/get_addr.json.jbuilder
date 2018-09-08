@@ -1,0 +1,1 @@
+json.extract! @addr, :name, :phone, :shop_id, :address

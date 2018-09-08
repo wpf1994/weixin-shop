@@ -1,0 +1,102 @@
+<style type="text/css">
+    .stractive {
+        padding: 5px
+    }
+</style>
+<div class="row" id="all_info">
+  <div class="col-xs-12">
+    <ul class="nav nav-tabs">
+      <li>
+        <a href="/admin/cancel_orders">
+          <i class="blue icon-th-list"></i> 列表
+        </a></li>
+      <li class="active">
+        <a class="pjax" href="/admin/cancel_orders/new">
+          <i class="blue icon-plus"></i> 新增
+        </a></li>
+    </ul>
+    <div class="col-xs-12 stractive">
+      <div class="col-xs-4">
+        <label>订单号：</label>
+        <input id="order_id" type="text" name="[cancel_order][order_id]" required>
+      </div>
+      <div class="col-xs-4">
+        <label>小票编号：</label><input id="xiaopiao_id" type="text" name="[cancel_order][receipt]">
+      </div>
+
+    </div>
+    <div class="col-xs-12 stractive">
+      <button class="btn btn-primary" onclick="max_shipping()"> 新增</button>
+    </div>
+    <div class="col-xs-12 stractive">
+      <div class="col-xs-4">
+        <label>商品分类：</label>
+        <select id="class_name" onchange="change_class()">
+          <% Classification.all.each do |item| %>
+              <option value="<%= item.id %>"><%= item.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-xs-4">
+        <label>商品：</label>
+        <!--<input type="hidden" name="[cancel_order_detail][shop_commodity_id]" value="<%= @shipping[0].shop_commodities[0].id %>">-->
+        <select id="shipping_name_1" name="[cancel_order_detail][commodity_id]" onchange="shipping_change()">
+          <% @shipping.each do |item| %>
+              <option value="<%= item.id %>,<%= item.shop_commodities[0].id %>,<%= item.shop_commodities[0].price %>"><%= item.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-xs-4">
+        <label>商品数量</label>
+        <input type="text" id="shipping_num_1" name="[cancel_order_detail][count]" placeholder="商品数量">
+      </div>
+    </div>
+    <br/><br/>
+  </div>
+</div>
+<div class="center col-xs-12 stractive">
+  <button class="btn btn-primary" onclick="submit_info()"> 提交</button>
+</div>
+<script type="text/javascript">
+  var num_shipping = 1
+  function change_class(){
+      var class_id = $('#class_name').val()
+      $.post('/admin/cancel_orders/get_shipping',{class_id: class_id},function(data){
+          $('#shipping_name_1').empty()
+          var result = ""
+          for(var i = 0;i< data.shipping.length;i++){
+              result +="<option value='"+data.shipping[i].id+"'>"+data.shipping[i].name+"</option>"
+          }
+          $('#shipping_name_1').append(result)
+      })
+  }
+        function shipping_change(data){
+
+        }
+        function submit_info(){
+            var shipping_info = {
+                shipping: [],
+                count: []
+            }
+            for(var i=1;i<=num_shipping;i++){
+                shipping_info.shipping.push($("#shipping_name_"+i+"").val())
+                shipping_info.count.push($("#shipping_num_"+i+"").val())
+            }
+            var order_id = $('#order_id').val()
+            var xiaopiao_id = $('#xiaopiao_id').val()
+            console.log(shipping_info)
+            $.post('/admin/cancel_orders/save_info',{shipping_info: shipping_info, order_id: order_id, xiaopiao_id: xiaopiao_id},function(data){
+                if(data.result=="OK"){
+                    window.location.href="/admin/cancel_orders"
+                }
+            })
+        }
+        function max_shipping(){
+            num_shipping +=1
+            var result = ""
+            result +="<div class='col-xs-12 stractive'> <div class='col-xs-4'> <label>商品分类：</label> <select id='class_name' onchange='change_class()'><% Classification.all.each do |item| %> <option value='<%= item.id %>''><%= item.name %></option>"
+            result +="<% end %> </select> </div> <div class='col-xs-4'> <label>商品：</label> <select id='shipping_name_"+num_shipping+"' name='[cancel_order_detail][commodity_id]' onchange='shipping_change()'><% @shipping.each do |item| %> <option value='<%= item.id %>,<%= item.shop_commodities[0].id %>,<%= item.shop_commodities[0].price %>'><%= item.name %></option><% end %> </select>"
+            result +="</div> <div class='col-xs-4'> <label>商品数量</label> <input type='text' id='shipping_num_"+num_shipping+"' name='[cancel_order_detail][count]' placeholder='商品数量'> </div> </div>"
+           $('#all_info').append(result)
+        }
+</script>

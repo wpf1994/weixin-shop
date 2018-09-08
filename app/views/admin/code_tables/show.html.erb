@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_code_table, pjax: true, model: CodeTable} %>
+    <div class="form-horizontal form-show" id="admin_code_table">
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.code_table.name' %></label>
+
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @code_table.name %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.code_table.default_value' %></label>
+
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @code_table.default_value %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.code_table.parent' %></label>
+
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @code_table.parent.name if @code_table.parent.present? %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.code_table.position' %></label>
+
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @code_table.position %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.code_table.remark' %></label>
+
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <textarea readonly="readonly" class="col-xs-12 col-sm-6"><%= @code_table.remark %></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.nav.nav-list li.active').removeClass('active');
+            $('.nav.nav-list li[data-model="code_table_list"]').addClass('active');
+        });
+    </script>
+  </div>
+</div>

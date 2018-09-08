@@ -1,0 +1,2 @@
+module Admin::ShopManageUsersHelper
+end

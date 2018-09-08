@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_permission, pjax: true,model: Permission} %>
+    <div class="form-horizontal form-show" id="admin_permission">
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.action' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.action %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.subject' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.subject %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.description' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.description %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.code' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.code %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.group_id' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.group_id %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.permission.fetching' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @permission.fetching %>">
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="permission_list"]').addClass('active');
+    } );
+</script>

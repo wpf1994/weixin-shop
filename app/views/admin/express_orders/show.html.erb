@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_express_order, pjax: true, model: 'ExpressOrder'} %>
+    <div class="form-horizontal form-show" id="admin_express_order">
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.consignee' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.consignee %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.phone' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.phone %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.address' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.address %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.status' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.status %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.shop' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.shop.name if @express_order.shop.present? %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.courier_id' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.courier_id %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.serial_number' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.serial_number %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.express_order.completed_at' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @express_order.completed_at %>">
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="express_order_list"]').addClass('active');
+    } );
+</script>

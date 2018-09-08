@@ -1,0 +1,36 @@
+<%= simple_form_for([:admin, @express_order], html: {class: 'form-horizontal form-show',id: 'express_order_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.input :consignee %>
+  <%= f.input :phone %>
+  <%= f.input :address %>
+  <%= f.input :status %>
+  <%= f.association :shop %>
+  <%= f.input :courier_id %>
+  <%= f.input :serial_number %>
+  <%= f.input :completed_at %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#express_order_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="express_order_list"]').addClass('active');
+    } );
+</script>

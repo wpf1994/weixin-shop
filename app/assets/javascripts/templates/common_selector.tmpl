@@ -1,0 +1,50 @@
+<div id="${id}_selector" class="modal fade" data-backdrop=true data-keyboard=true>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="no-margin-top no-margin-bottom">${title}</h3>
+            </div>
+            <div class="modal-body no-padding-bottom">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <ul id="${id}_nav" class="nav nav-tabs no-margin-bottom">
+                            <!--<li class="active"><a href="#${id}_select" data-toggle="tab">选择</a></li>-->
+                            <!--<li><a href="#${id}_search" data-toggle="tab">搜索</a></li>-->
+                        </ul>
+                        <div id="${id}_tab_content" class="tab-content" style="min-height: 300px; max-height: 500px; overflow-y: auto;">
+                            <!--<div class="tab-pane active" id="${id}_select" style="min-height: 200px;">-->
+                            <!--<ul id="${id}_ztree" class="ztree"></ul>-->
+                            <!--</div>-->
+                            <!--<div class="tab-pane" id="${id}_search">-->
+                            <!--<p>search here</p>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <ul class="nav nav-tabs no-margin-bottom">
+                            <li class="active"><a href="#">已选择</a></li>
+                        </ul>
+                        <div>
+                            <!--selected-->
+                            <select id="${id}_selected" multiple="multiple" style="min-height: 300px; width: 100%;">
+                            </select>
+                            <a id="${id}_btn_clear" href="#" class="btn btn-sm btn-danger pull-right">
+                                <i class="icon-ban-circle bigger-110"></i>清空
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="${id}_btn_save" href="#" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-ok bigger-110"></i>确定
+                </a>
+                <button class="btn btn-sm" data-dismiss="modal" aria-hidden="true">
+                    <i class="icon-off bigger-110"></i>关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

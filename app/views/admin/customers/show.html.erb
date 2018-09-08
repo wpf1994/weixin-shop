@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_customer, pjax: true,model: Customer} %>
+    <div class="form-horizontal form-show" id="admin_customer">
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.name' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.name %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.member_number' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.member_number %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.phone' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.phone %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.email' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.email %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.score' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.score %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.weixin_id' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.weixin_id %>">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.customer.lase_shop' %></label>
+            <div class="col-xs-12 col-sm-9">
+              <div class="clearfix">
+                    <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @customer.lase_shop.name if @customer.lase_shop.present? %>">
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="customer_list"]').addClass('active');
+    } );
+</script>

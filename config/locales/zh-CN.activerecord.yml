@@ -1,0 +1,282 @@
+zh-CN:
+  activerecord:
+    models:
+      user: 用户
+      code_table: 码表
+      role: 角色
+      permission: 权限
+      organization: 机构
+      attachment: 附件
+      customer: 客户
+      shop: 店铺
+      community: 小区
+      commodity: 商品
+      classification: 商品分类
+      employee: 店员
+      order: 订单
+      order_comment: 订单评价
+      shop_commodity: 商品配置
+      shop_manage_user: 店铺管理员
+      notice: 公告
+      advert: 广告
+      express_order: 快递单
+      dummy_shop_order: 虚拟商品
+    attributes:
+      manage_order:
+        admin_title: 派送订单管理
+      defaults:
+        id: 编号
+        created_at: 创建时间
+        date: 时间
+        position: 排序
+        file: 文件
+        select_file: 选择文件
+      shop_manage_user:
+        admin_title: 店铺管理员管理
+        name: 姓名
+        phone: 手机
+      role:
+        admin_title: 角色管理
+        name: 角色名称
+        description: 角色描述
+        permissions: 拥有权限
+        position: 排序
+      dummy_shop_order:
+        admin_title: 虚拟商品管理
+        user_name: 用户姓名
+        user_phone: 用户电话
+        commodity_name: 商品名称
+        commodity_num: 商品数量
+        created_at: 购买时间
+      permission:
+        description: 描述
+        group_id: 码表id
+        group: 码表
+        admin_title: 权限管理
+        action: 操作
+        subject: 对象
+        code: 代码
+        fetching: 对象筛选条件
+      attachment:
+        admin_title: 附件管理
+        name: 附件名称
+        author: 作者
+        position: 排序
+        data_type: 附件类型
+        avatar: 附件文件
+      code_table:
+        admin_title: 码表管理
+        name: 名称
+        parent: 上级码表
+        remark: 备注
+        position: 排序
+        default_value: 默认值
+      community:
+        admin_title: 小区管理
+        name: 小区名称
+        kind_name: 小区类型
+        region: 所在区域
+      customer:
+        admin_title: 客户管理
+        name: 客户名称
+        member_number: 会员号
+        phone: 手机号
+        email: 邮箱地址
+        score: 会员积分
+        weixin_id: 微信帐号
+        lase_shop: 店铺
+      classification:
+        admin_title: 商品分类管理
+        name: 分类名称
+        parent: 上级分类
+        single_statistics: 单独统计
+        position: 排序
+      commodity:
+        admin_title: 商品管理
+        name: 商品名称
+        summary: 商品摘要
+        content: 商品介绍
+        identifier: 商品编号
+        reference_price: 参考价格
+        cover: 封面
+        classification: 分类
+        upload: 商品上传
+      shop:
+        admin_title: 店铺管理
+        name: 店铺名称
+        address: 店铺地址
+        phone: 联系电话
+        map_location: 地图上的位置
+        region: 所属区域
+        parent: 上级店铺
+        can_express: 是否可以配送
+        express_amount: 默认配送费用
+        can_express_start_date: 可配送开始时间
+        can_express_end_date: 可配送结束时间
+      order_comment:
+        admin_title: 订单评价管理
+        order_id: 订单号
+        shop_id: 商店
+        order: 订单号
+        shop: 商店
+        total_star: 总体评分
+        speed_star: 速度评分
+        serve_start: 服务评分
+        content: 意见内容
+      order_info:
+        admin_title: 已处理订单管理
+      cancel_order:
+        admin_title: 退货管理
+        order_id: 订单号
+        shop_id: 商店
+        user_id: 操作员
+        total_amount: 退货金额
+        receipt: 小票编号
+      cancel_order_detail:
+        admin_title: 退货详情
+        cancel_order_id: 对应退货单
+        shop_commodity_id: 对应商品配置
+        commodity_id: 对应商品
+        price: 商品价格
+        count: 商品数量
+        total_amount: 商品总额
+      shop_commodity:
+        admin_title: 商品配置管理
+        shop_id: 商店
+        commodity_id: 商品
+        shop: 商店
+        commodity: 商品
+        price: 价格
+        position: 排序
+        enable: 是否启用
+        sales_volume: 销量
+        left_count: 剩余库存
+        is_has_long: 永久库存
+      employee:
+        admin_title: 送货员管理
+        name: 店员名字
+        phone: 电话
+        shop: 对应店铺
+        photo: 照片
+      order_express:
+        order_id: 订单号
+        address: 收货地址
+        phone: 收货电话
+        name: 收货人姓名
+        user_id: 递送员
+      shop_statistics:
+        admin_title: 统计管理
+      order:
+        admin_title: 订单管理
+        id: 订单号
+        custom: 客户
+        shop: 店铺
+        payed_at: 支付时间
+        total_amount: 总金额
+        commodity_amount: 商品金额
+        express_amount: 配送金额
+        consume_score: 使用积分抵扣
+        consume_amount: 抵扣金额
+        actual_amount: 实际金额
+        actual_reason: 调整原因
+        status: 订单状态
+        complete_date: 完成时间
+        created_at: 订单创建时间
+        set_out_at:  送货出发时间
+        customer: 客户
+      user:
+        admin_title: 人员管理
+        roles: 已有角色
+        name: 姓名
+        phone: 电话
+        email: 邮件
+        current_password: 旧密码
+        password: 密码
+        password_confirmation: 确认密码
+        remark: 备注
+        organization: 所属机构
+      user_bill:
+        admin_title: 用户账单
+        user: 用户
+        io_type: 账单类型
+        bill_type: 项目
+        before_record: 处理前
+        change_record: 数量
+        after_record: 处理后
+        content: 具体事项
+        relation_id: 关联id
+        created_at: 操作时间
+      organization:
+        admin_title: 机构管理
+        name: 机构名称
+        parent: 上级机构
+        position: 排序
+        remark: 备注
+      contacts_group:
+        name: 组名
+        organization: 所属机构
+        parent: 上级分组
+        position: 排序
+        remark: 备注
+      contact:
+        code: 编号
+        name: 姓名
+        birthday: 生日
+        gender: 性别
+        organization: 所属机构
+        contacts_group: 所属分组
+        position: 排序
+        phone: 电话
+        qq: QQ
+        email: Email
+        remark: 备注
+        input: 导入
+      express_order:
+        consignee: "收货人"
+        phone: "收货电话"
+        address: "收货地址"
+        status: "订单状态"
+        shop: "对应店铺"
+        courier_id: "送货人"
+        serial_number: "快递单号"
+        completed_at: "完成时间"
+      notice:
+        title: "标题"
+        content: "内容"
+        author: "作者"
+        public_at: "发布时间"
+      advert:
+        name: "名称"
+        title: "标题"
+        cover: '对应图片'
+        link: "对应链接"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 请填写电子邮箱
+            password:
+              blank: 请填写密码
+              too_short: 密码长度要多于8位
+            reset_password_token:
+              invalid: 这个链接已经失效的，请用最新的链接
+
+  title:
+      statistics:
+        menu: 统计报表
+        person: 个人统计报表
+        year: 年报表
+        month: 月报表
+  contacts:
+      menu: 通讯录
+      contacts: 通讯录管理
+      group: 通讯录分组
+      content: 联系人信息
+  users:
+      menu: 系统管理
+      user_info: 个人信息
+      update_password: 修改密码
+      wallet: 我的钱包
+      bill: 我的账单
+      bill_detail: 账单明细

@@ -1,0 +1,155 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh-CN:
+  web:
+    org: 缤购
+    system: 服务平台
+    manage_system: 后台管理
+  login:
+    account: 账号
+    in: 登录
+    back_in: 返回登录
+    back: 返回
+    submit: 提交
+    name: 姓名
+    password: 密码
+    password_confirmation: 密码确认
+    current_password: 原始密码
+    new_password: 新密码
+    change_password: 修改密码
+    change_password_success: 修改密码成功
+    remember_me: 自动登录
+    logout: 退出
+    login: 登录
+    forget_pw: 忘记密码
+    registration: 加入社区
+    sing_up: 注册
+    recommended_browser: 推荐浏览器
+    back_to_login: 返回登录
+    retrieve_password: 找回密码
+  common:
+    home: 网站首页
+    show_all: 查看全部
+    back: 返回
+    list: 列表
+    edit: 编辑
+    new: 新增
+    show: 查看
+    confirm_delete: 确认删除?
+    delete: 删除
+    delete_multi: 批量删除
+    create: 创建
+    update: 更新
+    destroy: 删除
+    success: 成功
+    fault: 失败
+    confirm_delete: 确认删除
+    cancel: 取消
+    normal: 正常
+    removed: 已删除
+    enable: 启用
+    sex:
+      male: 男
+      female: 女
+    created_at: 时间
+  error:
+    no_data_permission: 没有该数据使用权限
+  helpers:
+    submit:
+      create: "创建 %{model}"
+      update: "保存更新"
+  devise:
+    failure:
+      already_authenticated: 你已经登录了
+    sessions:
+      user:
+        signed_in: 欢迎回来
+        signed_out: 注销成功
+    registrations:
+      user:
+        signed_up: 用户注册成功
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo; "
+      next: "&rsaquo;"
+      truncate: "..."
+
+  datetime:
+      distance_in_words:
+        half_a_minute: "半分钟"
+        less_than_x_seconds:
+          one: "一秒内"
+          other: "少于 %{count} 秒"
+        x_seconds:
+          one: "一秒"
+          other: "%{count} 秒"
+        less_than_x_minutes:
+          one: "一分钟内"
+          other: "少于 %{count} 分钟"
+        x_minutes:
+          one: "一分钟"
+          other: "%{count} 分钟"
+        about_x_hours:
+          one: "大约一小时"
+          other: "大约 %{count} 小时"
+        x_hours:
+          one:   "1 小时"
+          other: "%{count} 小时"
+        x_days:
+          one: "一天"
+          other: "%{count} 天"
+        about_x_months:
+          one: "大约一个月"
+          other: "大约 %{count} 个月"
+        x_months:
+          one: "一个月"
+          other: "%{count} 个月"
+        about_x_years:
+          one: "大约一年"
+          other: "大约 %{count} 年"
+        over_x_years:
+          one: "超过一年"
+          other: "超过 %{count} 年"
+        almost_x_years:
+          one:   "将近 1 年"
+          other: "将近 %{count} 年"
+
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b月%d日"
+      long: "%Y年%b月%d日"
+
+    day_names: [星期天, 星期一, 星期二, 星期三, 星期四, 星期五, 星期六]
+    abbr_day_names: [日, 一, 二, 三, 四, 五, 六]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, 一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月]
+    abbr_month_names: [~, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    # Used in date_select and datime_select.
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%Y年%b月%d日 %H:%M:%S %A"
+      time: "%H:%M:%S"
+      short: "%b月%d日 %H:%M"
+      long: "%Y年%b月%d日 %H:%M:%S"
+      day: "%Y年%b月%d日"
+      simple: "%Y-%b-%d %H:%M:%S"
+    am: "上午"
+    pm: "下午"
+
+  label_added_time_by: "由 %{author} 在 %{age} 之前添加"
+  label_updated_time: " 更新于 %{value} 之前"
+  label_updated_time_by: "由 %{author} 更新于 %{age} 之前"
+  label_submited_time_by: "由 %{author} 提交于 %{age} 之前"

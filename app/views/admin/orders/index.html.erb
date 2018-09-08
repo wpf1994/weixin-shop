@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial:  'common/nav', locals: {show_tab: :index, model_nav_name: :admin_order, pjax: true, model: 'Order'} %>
+    <%= form_for 'Order', url: admin_orders_destroy_multi_path, method: :post, data: { confirm: "#{  t 'common.confirm_delete'}"} do %>
+    <div id="admin_orders">
+      <%= grid(@orders, show_filters: :when_filtered) do |g|
+      g.action_column param_name: :select_ids, object_property: :id
+      g.column name: "#{t 'activerecord.attributes.defaults.id'}", attribute: 'id', filter: false, ordering: true
+      g.column name: "#{t 'activerecord.attributes.order.custom'}", attribute: 'customer_id' do |c|
+        c.customer.name  if c.customer.present?
+      end
+      # g.column name: "#{t 'activerecord.attributes.order.shop'}", attribute: 'shop_id' do |c|
+      #   c.shop.name if c.shop.present?
+      # end
+      g.column name: "#{t 'activerecord.attributes.order.commodity_amount'}", attribute: 'commodity_amount'
+
+      g.column name: '准备耗时' do |c|
+        ''+((c.set_out_at - c.created_at)/60).to_i.to_s + '分' if(c.set_out_at.present?)
+      end
+
+      g.column name: '派送耗时' do |c|
+        ''+((c.order_express.complete_date - c.order_express.express_start_time)/60).to_i.to_s + '分'  if c.order_express.present? &&  (c.order_express.complete_date.present? && c.order_express.express_start_time.present?)
+      end
+
+      g.column name: '送货员姓名' do |c|
+        c.order_express.user.name if c.order_express.present? && c.order_express.user.present?
+      end
+      g.column name: "#{t 'activerecord.attributes.order.status'}", attribute: 'status' do |c|
+            "#{@status_option[c.status]}"
+      end
+
+
+        g.column  do |c|
+          # grid_operator(:admin_order_path, c.id, Order)
+        end
+      end %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="order_list"]').addClass('active');
+    } );
+</script>

@@ -1,0 +1,75 @@
+<div class="user-info" ng-click="gagahah()">
+    <div class="user-head">
+        <i class="fa fa-user"></i>
+    </div>
+    <dl>
+        <dd>
+            <!--<div ng-show="!text_show"><input type="text" value="{{person.name}}"><button ng-click="change_user_name()">确定</button></div>-->
+            <label ng-show="text_show" ng-click="change_user_name()">{{person.name || "用户_"+person.id}}</label>
+        </dd>
+    </dl>
+</div>
+<div class="score-list" ng-click="detail_score()">
+    积分<div><span  class="highlight">{{person.score || 0}}</span>分 </div>
+</div>
+<div class="order-list">
+    <h3>当前订单</h3>
+    <ul>
+        <li  ng-repeat="temp in order_ing" ng-click="order_detail_info(temp)">
+            <a>
+                <span>{{temp.shop.name}}</span>
+                <span class="highlight">￥{{temp.actual_amount}}</span>
+                <span>{{ order_status[temp.status]}}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="order-list" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+    <h3>历史订单</h3>
+    <ul>
+        <li ng-repeat="cod in order_old">
+            <a >
+
+                <span  ng-click="order_detail_info(cod)">{{cod.shop.name}}</span>
+                <span class="highlight"  ng-click="order_detail_info(cod)">￥{{cod.commodity_amount}}</span>
+                <span><button ng-class="{'btn-comment': cod.status==5}" ng-click="result_show_review(cod)" ng-disabled="cod.status!=5">{{ order_status[cod.status]}}</button></span>
+            </a>
+
+        </li>
+    </ul>
+</div>
+<div class="modal model" ng-show="review_show">
+    <div class="modal-bg"></div>
+    <div class="model-form model-comment">
+        <div class="model-form-title"><i class="fa fa-close" ng-click="hide_table()"></i></div>
+        <div class="model-comment-form">
+            <ul>
+                <li><span>总评分</span>
+
+                    <div id="asb" class="star-list"></div>
+                </li>
+                <li><span>送货速度</span>
+
+                    <div id="bsb" class="star-list" ></div>
+                </li>
+                <li><span>服务</span>
+
+                    <div id="csb" class="star-list"></div>
+                </li>
+                <li>
+                    <span >意见</span>
+                    <textarea ng-model="order_comment.content"></textarea>
+                </li>
+            </ul>
+            <div class="footer-btn-red" ng-click="review_view()">
+                <a>确认</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.star-list').raty();
+</script>
+
+
+

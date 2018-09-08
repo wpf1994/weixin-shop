@@ -1,0 +1,16 @@
+<div class="wrap">
+    <div class="shop-list"  ng-repeat="area in area_shop">
+            <h3 ><span >{{area.shop_area.name}}</span></h3>
+
+            <ul>
+                <li ng-repeat="stemp in area.shop_area.shops" ng-click="selected_shop(stemp)">
+                    <a ng-class="{'shop-list-check': now_shop_id== stemp.id}"><img src="/images/shop_logo.png"
+                                                    class="shop-logo"/><span>{{stemp.name}}</span></a>
+                </li>
+
+            </ul>
+
+    </div>
+</div>
+
+

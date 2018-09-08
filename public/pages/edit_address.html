@@ -1,0 +1,22 @@
+<div class="address-form">
+    <ul>
+        <li>
+            <span>收货地址*</span>
+            <input type="text" ng-model="edit_address_info.address" placeholder="详细地址" >
+        </li>
+        <li>
+            <span>收货电话*</span>
+            <input type="text" ng-model="edit_address_info.phone" placeholder="手机或手机">
+        </li>
+        <li>
+            <span>收货人姓名</span>
+            <input type="text" ng-model="edit_address_info.name">
+        </li>
+        <li>
+            <span>是否设为默认</span>
+            <label class="table-checkbox"><input type="checkbox" ng-model="edit_address_info.is_default"><span class="check"></span></label>
+        </li>
+    </ul>
+    <a ng-click="submit_edit_address()"><span>保存并使用</span></a>
+</div>
+

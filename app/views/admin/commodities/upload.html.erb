@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div id="dropzone">
+      <form action="<%= admin_commodities_upload_path %>" class="dropzone">
+        <%= tag(:input, type: 'hidden', name: request_forgery_protection_token.to_s, value: form_authenticity_token) %>
+        <div class="fallback">
+          <input name="file" type="file" multiple="" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(function($){
+    try {
+      $(".dropzone").dropzone({
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 5.0, // MB
+        addRemoveLinks : true,
+        dictDefaultMessage :
+            '<span class="bigger-150 bolder"><i class="icon-caret-right red"></i> 拖拽文件</span> 进行上传 ' +
+            '<span class="smaller-80 grey">(或者点击此处)</span> <br /> ' +
+            '<span class="smaller-80 grey">[文件名格式为"分类-物品名称-价格"，例如"副食-Ligo薯片43g-9"]</span><br />' +
+            '<i class="upload-icon icon-cloud-upload blue icon-3x"></i>',
+        dictResponseError: '文件上传失败!',
+        //change the previewTemplate to use Bootstrap progress bars
+        previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
+      });
+    } catch(e) {
+      alert('Dropzone.js does not support older browsers!');
+    }
+
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="commodity_upload"]').addClass('active');
+  });
+</script>

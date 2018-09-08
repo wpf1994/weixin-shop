@@ -1,0 +1,42 @@
+<%= simple_form_for([:admin, @code_table], html: {class: 'form-horizontal', id: 'code_table_form'}) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.input :name, autofocus: true, required: true %>
+    <%= f.association :parent %>
+    <%= f.input :position %>
+    <%= f.input :default_value %>
+    <%= f.input :remark, as: :text %>
+
+    <div class="clearfix form-actions">
+      <div class="col-md-offset-3 col-md-9">
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#code_table_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+                "code_table[name]": {
+                    required: true
+                },
+                "code_table[position]": {
+                    required: true,
+                    digits: true,
+                    range: [0, 500]
+                }
+            },
+            messages: {
+                "code_table[name]": {
+                    required: "请输入码表名称"
+                }
+            }
+        });
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="code_table_list"]').addClass('active');
+    });
+</script>

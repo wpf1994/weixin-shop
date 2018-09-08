@@ -1,0 +1,35 @@
+<%= simple_form_for([:admin, @customer], html: {class: 'form-horizontal form-show',id: 'customer_form' }) do |f| %>
+<%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%= f.input :member_number %>
+  <%= f.input :phone %>
+  <%= f.input :email %>
+  <%= f.input :score %>
+  <%= f.input :weixin_id %>
+  <%= f.association :lase_shop %>
+
+<div class="clearfix form-actions">
+  <div class="col-md-offset-3 col-md-9">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+
+<script>
+    $(function () {
+        $('#customer_form').validator_b3({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+            },
+            messages: {
+            }
+        });
+
+
+        $('.nav.nav-list li.active').removeClass('active');
+        $('.nav.nav-list li[data-model="customer_list"]').addClass('active');
+    } );
+</script>

@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= render partial: 'common/nav', locals: {show_tab: :show, model_nav_name: :admin_notice, pjax: false, model: 'Notice'} %>
+    <div class="form-horizontal form-show" id="admin_notice">
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.notice.title' %></label>
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @notice.title %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.notice.content' %></label>
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <div type="text" readonly="readonly" class="col-xs-12 col-sm-6">
+              <%= @notice.content.html_safe %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.notice.author' %></label>
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @notice.author %>">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3"><%= t 'activerecord.attributes.notice.public_at' %></label>
+        <div class="col-xs-12 col-sm-9">
+          <div class="clearfix">
+            <input type="text" readonly="readonly" class="col-xs-12 col-sm-6" value="<%= @notice.public_at %>">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    $('.nav.nav-list li.active').removeClass('active');
+    $('.nav.nav-list li[data-model="notice_list"]').addClass('active');
+  });
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/assets/css/mycss/main.css" rel="stylesheet" />
+  <title>待送货</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="header search">
+        <input type="text" class="header-search" placeholder="地址"/><a>确认</a>
+    </div>
+    <div style="margin-top: 46px">
+      <% @order_express.each  do |c| %>
+        <div class="express-list">
+            <dl>
+                <dd><%= c.address %></dd>
+                <dt><i class="fa fa-mobile"></i><a  class="phone" href="tel://<%= c.phone %>"><%= c.phone %></a>
+                    <% if c.order.pay_style == 0 %>  收费：<span class="highlight">￥<%= c.order.actual_amount %></span><% end %></dt>
+            </dl>
+            <a class="btn" onclick="entrue_order(<%= c.order.id %>)">确认送达</a>
+        </div>
+      <% end  %>
+    </div>
+</div>
+</body>
+<script>
+  function entrue_order(data){
+      $.post("/front/homes/express_entrue",{order_id:data},function(result){
+          if(result.result == "OK")
+          {
+              location.reload();
+          }
+      })
+  }
+    $(function(){
+      $('a.tel').removeClass()
+    })
+</script>
+</html>
